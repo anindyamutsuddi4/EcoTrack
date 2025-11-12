@@ -17,3 +17,11 @@
   font-optical-sizing: auto;
   font-style: normal;
 }
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+.bounce-slow {
+  animation: bounce-slow 2s infinite;
+}

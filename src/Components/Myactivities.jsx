@@ -41,11 +41,24 @@ useEffect(() => {
     fetchChallenges();
 }, [data]);
     return (
-        <div className='pt-20 grid lg:grid-cols-3 mx-50 gap-5'>
-            {
-                value.map((x,index) => (<Myallchallenges key={index} x={x}></Myallchallenges>))
-            }
-        </div>
+       <div className="bg-[#17483d] pt-20  md:pt-38 pb-16 px-4 lg:px-50">
+  <div className="text-center mb-8 px-2 md:px-4 lg:px-0">
+    <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white lora">
+      My Challenge Collection
+    </h2>
+    <p className="mt-2 mb-15 text-gray-300 text-sm md:text-lg">
+      Here are all the challenges I’ve taken so far — track your progress and achievements!
+    </p>
+  </div>
+
+
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5 px-2 md:px-4 lg:px-0">
+    {value.map((x, index) => (
+      <Myallchallenges key={index} x={x} />
+    ))}
+  </div>
+</div>
+
     );
 };
 

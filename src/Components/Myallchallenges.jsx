@@ -2,9 +2,10 @@ import React from 'react';
 
 const Myallchallenges = ({x}) => {
     return (
-        <div className="relative w-full bg-white rounded-2xl shadow-xl border border-gray-200 hover:shadow-2xl transition duration-300 max-w-sm mx-auto overflow-hidden">
+   
+             <div className="relative border-2 border-yellow-500 bg-[#d3b613] text-black w-full h-full rounded-2xl shadow-xl border border-gray-200 hover:shadow-2xl transition duration-300 max-w-sm mx-auto overflow-hidden">
       {/* Image Section */}
-      <div className="relative h-48 w-full">
+      <div className="relative h-52 w-full">
         <img
           src={x.imageUrl}
           alt={x.title}
@@ -18,13 +19,11 @@ const Myallchallenges = ({x}) => {
           {x.category}
         </span> */}
       </div>
-
-      {/* Info Section */}
       <div className="p-5 space-y-2">
-        <h2 className="text-xl font-bold text-gray-900">{x.title}</h2>
-        <p className="text-sm text-gray-700">{x.description}</p>
+        <h2 className="text-xl font-bold ">{x.title}</h2>
+        <p className="text-sm ">{x.description}</p>
 
-        <div className="flex justify-between text-xs text-gray-600 mt-2">
+        <div className="flex justify-between text-xs  mt-2">
           <span>Duration: {x.duration} days</span>
           <span>Target: {x.target}</span>
         </div>
@@ -45,12 +44,14 @@ const Myallchallenges = ({x}) => {
             <h3 className="text-sm font-bold text-wrap text-yellow-700">{x.createdBy}</h3>
             <p className="text-xs text-gray-500">Created By</p>
           </div>
-        <div className="flex justify-between items-center mt-3 text-xs text-gray-600">
+        <div className="flex justify-between items-center mt-3 text-xs ">
           <span>Start: {x.startDate}</span>
           <span>End: {x.endDate}</span>
         </div>
       </div>
     </div>
+       
+       
     );
 };
 

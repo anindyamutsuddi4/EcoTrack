@@ -41,7 +41,7 @@ const Challengedetails = () => {
             .then(
                 data => {
                     console.log('data after user save', data)
-                    toast("You successfully joined the challenge")
+                   // toast("You successfully joined the challenge")
                 }
             )
     };
@@ -53,11 +53,11 @@ const Challengedetails = () => {
             <img
                 src={challenge.imageUrl}
                 alt={challenge.title}
-                className="relative border-white border-2 z-10 left-70 w-[376px]  h-[376px] object-cover rounded-2xl shadow-2xl  "
+                className="relative bounce-slow border-2 border-yellow-500 mt-2 z-10 left-70 w-[376px]  h-[376px] object-cover rounded-2xl shadow-2xl  "
             />
 
             {/* Card */}
-            <div className="bg-white mt-51 max-w-3xl w-full absolute  rounded-3xl shadow-2xl border border-gray-100 overflow-hidden">
+            <div className=" bg-[#d3b613] mt-51 max-w-3xl w-full absolute  rounded-3xl shadow-2xl border border-gray-100 overflow-hidden">
 
                 <div className="p-6 md:p-8">
 
@@ -65,16 +65,16 @@ const Challengedetails = () => {
                         <span className="bg-gray-200 text-sm px-4 py-1 rounded-full font-medium text-gray-800 shadow mb-2">
                             {challenge.category}
                         </span>
-                        <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
+                        <h1 className="text-2xl md:text-3xl font-bold text-black">
                             {challenge.title}
                         </h1>
-                        <span className="text-sm font-semibold text-gray-700 mt-1">
+                        <span className="text-sm font-semibold text-black mt-1">
                             {challenge.duration} Days
                         </span>
                     </div>
 
 
-                    <p className="text-gray-700 leading-relaxed max-w-110 text-sm md:text-base mb-4">
+                    <p className="text-black leading-relaxed max-w-110 text-sm md:text-base mb-4">
                         {challenge.description}
                     </p>
 
@@ -96,7 +96,7 @@ const Challengedetails = () => {
 
 
                     <div className="mt-6">
-                        <div className="flex justify-between text-xs text-gray-600">
+                        <div className="flex justify-between text-xs text-black">
                             <span>Start: {challenge.startDate}</span>
                             <span>End: {challenge.endDate}</span>
                         </div>
