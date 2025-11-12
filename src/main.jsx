@@ -56,7 +56,7 @@ const router = createBrowserRouter([
     },
     {
       path: '/myactivities/:email',
-      Component: Myactivities,
+      element:<Privateroute><Myactivities></Myactivities></Privateroute>, 
       loader: ({ params }) => {
         return fetch(`http://localhost:3000/myactivities/${params.email}`)
       }

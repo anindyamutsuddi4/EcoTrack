@@ -1,11 +1,12 @@
 import React, { use, useEffect, useState } from 'react';
-import { useLoaderData } from 'react-router';
+import { NavLink, useLoaderData, useLocation } from 'react-router';
 import { AuthContext } from './AuthContext';
 import { toast } from 'react-toastify';
 
 const Challengedetails = () => {
     const challenge = useLoaderData();
     const { user } = use(AuthContext)
+
     //console.log(challenge)
     const [participants, setParticipants] = useState(challenge.participants);
     const [refresh, setRefresh] = useState(false);
@@ -18,66 +19,94 @@ const Challengedetails = () => {
         };
         fetchParticipants();
     }, [challenge._id, refresh]);
+    //const [value,setvalue]=useState([])
+    const [toggle, settoggle] = useState(false)
 
+    useEffect(() => {
+            if (!user) return
+        const fetchParticipants = async () => {
+            const res = await fetch(`http://localhost:3000/myactivities/${user.email}`);
+            const data = await res.json();
+            //setParticipants(data.participants);
+            const y = data.find(x => x.challengeid === challenge._id)
+            if (y) {
+                settoggle(true)
+                return
+            }
+
+        };
+        fetchParticipants();
+    }, [challenge._id, user]);
+    // if (!user) {
+    //     return (
+    //         <div className="min-h-screen flex justify-center items-center">
+    //             Loading...
+    //         </div>
+    //     );
+    // }
     const onclick = async () => {
-        const data = {
-            userId: user.email, // e.g., unique user id or email.
-            challengeid: challenge._id,
-            status: "Not Started",// e.g., &quot;Not Started&quot;, &quot;Ongoing&quot;, &quot;Finished&quot;progress: 0,
-            joinDate: new Date()
+        //setvalue(val)
+        if (!toggle) {
+            const data = {
+                userId: user.email, // e.g., unique user id or email.
+                challengeid: challenge._id,
+                status: "Not Started",// e.g., &quot;Not Started&quot;, &quot;Ongoing&quot;, &quot;Finished&quot;progress: 0,
+                joinDate: new Date()
+            }
+
+            await fetch(`http://localhost:3000/challenges/join/${challenge._id}`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(data),
+
+                }).then(res => res.json())
+                .then(
+                    data => {
+                        console.log('data after user save', data)
+                        toast("You successfully joined the challenge")
+                    }
+                )
+            await fetch(`http://localhost:3000/challenges/${challenge._id}`,
+                {
+                    method: 'PATCH',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify({ incrementParticipants: true }),
+
+                })
+
+            // .then(res => res.json())
+            // .then(
+            //     data => {
+            //         console.log('data is updated', data)
+            //         // toast("You successfully patched the challenge")
+            //     }
+            // )
+            setRefresh(prev => !prev);
+            // setParticipants(challenge.participants);
+            fetch(`http://localhost:3000/myactivities/${user.email}`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(data),
+
+                }).then(res => res.json())
+                .then(
+                    data => {
+                        console.log('data after user save', data)
+                        // toast("You successfully joined the challenge")
+                    }
+                )
+                 settoggle(true)
         }
-
-       await fetch(`http://localhost:3000/challenges/join/${challenge._id}`,
-            {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify(data),
-
-            }).then(res => res.json())
-            .then(
-                data => {
-                    console.log('data after user save', data)
-                    toast("You successfully joined the challenge")
-                }
-            )
-      await  fetch(`http://localhost:3000/challenges/${challenge._id}`,
-            {
-                method: 'PATCH',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify({ incrementParticipants: true }),
-
-            })
-        // .then(res => res.json())
-        // .then(
-        //     data => {
-        //         console.log('data is updated', data)
-        //         // toast("You successfully patched the challenge")
-        //     }
-        // )
-        setRefresh(prev => !prev);
-        // setParticipants(challenge.participants);
-        fetch(`http://localhost:3000/myactivities/${user.email}`,
-            {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify(data),
-
-            }).then(res => res.json())
-            .then(
-                data => {
-                    console.log('data after user save', data)
-                    // toast("You successfully joined the challenge")
-                }
-            )
-
     }
-
+const location=useLocation()
 
 
     return (
@@ -85,7 +114,7 @@ const Challengedetails = () => {
 
             {/* Image */}
             <img
-                src={challenge.imageUrl}
+                src={challenge?.imageUrl}
                 alt={challenge.title}
                 className="relative bounce-slow border-2 border-yellow-500 mt-2 z-10 left-70 w-[376px]  h-[376px] object-cover rounded-2xl shadow-2xl  "
             />
@@ -155,9 +184,17 @@ const Challengedetails = () => {
                         <p className="text-sm text-gray-600">
                             Created by: <span className="font-semibold text-gray-800">{challenge.createdBy}</span>
                         </p>
-                        <button onClick={onclick} className="px-5 py-2 bg-[#17483d] text-white text-sm rounded-full shadow transition">
-                            Join Challenge
-                        </button>
+                        {user?(
+                            toggle ? <button onClick={onclick} className="px-5 py-2 bg-[#17483d] text-white text-sm rounded-full shadow transition">
+                                Joined
+                            </button> :
+                          <button onClick={onclick} className="px-5 py-2 bg-[#17483d] text-white text-sm rounded-full shadow transition">
+                                Join Challenge
+                            </button>
+                        ):(<NavLink to='/login' state={location?.pathname||'/'}> <button  className="px-5 py-2 bg-[#17483d] text-white text-sm rounded-full shadow transition">
+                                Join Challenge
+                            </button></NavLink>)}
+
                     </div>
                 </div>
             </div>
