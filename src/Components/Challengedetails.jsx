@@ -26,7 +26,22 @@ const Challengedetails = () => {
             .then(
                 data => {
                     console.log('data after user save', data)
-                toast("You successfully joined the challenge")
+                    toast("You successfully joined the challenge")
+                }
+            )
+        fetch(`http://localhost:3000/myactivities/${user.email}`,
+            {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(data),
+
+            }).then(res => res.json())
+            .then(
+                data => {
+                    console.log('data after user save', data)
+                    toast("You successfully joined the challenge")
                 }
             )
     };

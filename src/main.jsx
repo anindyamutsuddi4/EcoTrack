@@ -35,29 +35,33 @@ const router = createBrowserRouter([
     }, {
       path: "/profile",
       element: <Privateroute><Profile></Profile></Privateroute>
-    }, {
-      path: "/myactivities",
-      element: <Privateroute><Myactivities></Myactivities></Privateroute>
-    }
-      , {
+    },
+   {
       path: "/allchallenges",
       element: <Privateroute><Allchallenges></Allchallenges></Privateroute>
     },
-  {
-    path:'/challenges/:id',
-    Component:Challengedetails,
-    loader:({params})=>{
-      return fetch(`http://localhost:3000/challenges/${params.id}`)
-    }
-  },
-   {
-    path:'allchallenges/challenges/:id',
-    Component:Challengedetails,
-    loader:({params})=>{
-      return fetch(`http://localhost:3000/challenges/${params.id}`)
-    }
-  },
-]
+    {
+      path: '/challenges/:id',
+      Component: Challengedetails,
+      loader: ({ params }) => {
+        return fetch(`http://localhost:3000/challenges/${params.id}`)
+      }
+    },
+    {
+      path: 'allchallenges/challenges/:id',
+      Component: Challengedetails,
+      loader: ({ params }) => {
+        return fetch(`http://localhost:3000/challenges/${params.id}`)
+      }
+    },
+    {
+      path: '/myactivities/:email',
+      Component: Myactivities,
+      loader: ({ params }) => {
+        return fetch(`http://localhost:3000/myactivities/${params.email}`)
+      }
+    },
+    ]
   },
 ]);
 createRoot(document.getElementById('root')).render(

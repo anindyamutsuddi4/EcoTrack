@@ -9,7 +9,7 @@ const Header = () => {
     const handlelogout = () => {
         logout().then(() => {
             navigate('/')
-             toast("You have successfully logged out")
+            toast("You have successfully logged out")
         })
             .catch(error => console.log(error))
     }
@@ -34,15 +34,15 @@ const Header = () => {
         }
         <li>|</li>
         <li><NavLink to="/allchallenges">Challenges</NavLink></li>
-         <li>|</li>
+        <li>|</li>
         {
             user && <li ><NavLink to="/profile">Profile</NavLink></li>
         }
-   {user&&<li>|</li>}     
- 
- {
-    user&&<li><NavLink to="/myactivities">My activities</NavLink></li>
- }
+        {user && <li>|</li>}
+
+        {
+            user && <li><NavLink to={`/myactivities/${user.email}`}>My activities</NavLink></li>
+        }
     </>
     return (
 
