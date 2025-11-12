@@ -74,7 +74,7 @@ const {user}=use(AuthContext)
             endDate,
             imageUrl,
         };
-        console.log('Form Data', formData);
+        //console.log('Form Data', formData);
         // Call your API here
          fetch('http://localhost:3000/challenges', 
             { method: 'POST',
@@ -86,15 +86,8 @@ const {user}=use(AuthContext)
              }) .then(res => res.json())
             .then(
                 data =>
-             console.log('data after user save', data)
-                // {
-                //     if (data.insertedId) {
-                      
-                //         newbid._id = data.insertedId
-                //         const newbids = [...bids, newbid]
-                //         setbids(newbids)
-                //     }
-                // }
+             {console.log('data after user save', data)
+              e.target.reset()}
             )
     };
     return (
@@ -137,7 +130,7 @@ const {user}=use(AuthContext)
                 <p className="font-md text-center text-gray-600 text-xl pt-2 pb-12">Explore Ongoing Sustainability Challenges and Take Action for a <span className="text-green-900 font-semibold"> Greener </span>
                     Tomorrow...</p>
                 <div className="grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-36 pt-5">{
-                    challenges.map(x => (<Challenges x={x}></Challenges>))
+                    challenges.map(x => (<Challenges key={x._id} x={x}></Challenges>))
                 }</div>
                 <NavLink to="/allchallenges">                <button className="mt-10  mx-auto flex justify-center bg-[#17483d] hover:bg-[#0a7f6a] text-white font-medium py-2 px-9 rounded-full transition-colors duration-300">Show All </button>
                 </NavLink>

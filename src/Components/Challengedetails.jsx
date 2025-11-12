@@ -1,0 +1,119 @@
+import React, { use } from 'react';
+import { useLoaderData } from 'react-router';
+import { AuthContext } from './AuthContext';
+import { toast } from 'react-toastify';
+
+const Challengedetails = () => {
+    const challenge = useLoaderData();
+    const { user } = use(AuthContext)
+    //console.log(challenge)
+    const onclick = () => {
+        const data = {
+            userId: user.email, // e.g., unique user id or email.
+            challengeid: challenge._id,
+            status: "Not Started",// e.g., &quot;Not Started&quot;, &quot;Ongoing&quot;, &quot;Finished&quot;progress: 0,
+            joinDate: new Date()
+        }
+        fetch(`http://localhost:3000/challenges/join/${challenge._id}`,
+            {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(data),
+
+            }).then(res => res.json())
+            .then(
+                data => {
+                    console.log('data after user save', data)
+                toast("You successfully joined the challenge")
+                }
+            )
+    };
+
+    return (
+        <div className="min-h-screen bg-[#17483d]  flex justify-center items-start pt-20 px-4 relative">
+
+            {/* Image */}
+            <img
+                src={challenge.imageUrl}
+                alt={challenge.title}
+                className="relative border-white border-2 z-10 left-70 w-[376px]  h-[376px] object-cover rounded-2xl shadow-2xl  "
+            />
+
+            {/* Card */}
+            <div className="bg-white mt-51 max-w-3xl w-full absolute  rounded-3xl shadow-2xl border border-gray-100 overflow-hidden">
+
+                <div className="p-6 md:p-8">
+
+                    <div className="flex flex-col items-start mb-4">
+                        <span className="bg-gray-200 text-sm px-4 py-1 rounded-full font-medium text-gray-800 shadow mb-2">
+                            {challenge.category}
+                        </span>
+                        <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
+                            {challenge.title}
+                        </h1>
+                        <span className="text-sm font-semibold text-gray-700 mt-1">
+                            {challenge.duration} Days
+                        </span>
+                    </div>
+
+
+                    <p className="text-gray-700 leading-relaxed max-w-110 text-sm md:text-base mb-4">
+                        {challenge.description}
+                    </p>
+
+
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mt-4">
+                        <div className="bg-green-50 p-3 rounded-xl text-center shadow-sm">
+                            <h3 className="text-lg font-bold text-green-700">{challenge.participants}</h3>
+                            <p className="text-xs text-gray-500">Participants</p>
+                        </div>
+                        <div className="bg-blue-50 p-3 rounded-xl text-center shadow-sm">
+                            <h3 className="text-lg font-bold text-blue-700">{challenge.target}</h3>
+                            <p className="text-xs text-gray-500">Target</p>
+                        </div>
+                        <div className="bg-yellow-50 p-3 rounded-xl text-center shadow-sm">
+                            <h3 className="text-lg font-bold text-yellow-700">{challenge.impactMetric}</h3>
+                            <p className="text-xs text-gray-500">Impact</p>
+                        </div>
+                    </div>
+
+
+                    <div className="mt-6">
+                        <div className="flex justify-between text-xs text-gray-600">
+                            <span>Start: {challenge.startDate}</span>
+                            <span>End: {challenge.endDate}</span>
+                        </div>
+                        <div className="w-full h-3 bg-gray-100 rounded-full mt-2 overflow-hidden">
+                            <div
+                                className="h-3 bg-green-500 rounded-full"
+                                style={{
+                                    width: `${(new Date(challenge.startDate) <= new Date() &&
+                                        new Date(challenge.endDate) >= new Date())
+                                        ? ((Date.now() - new Date(challenge.startDate)) /
+                                            (new Date(challenge.endDate) - new Date(challenge.startDate))) *
+                                        100
+                                        : 0
+                                        }%`,
+                                }}
+                            ></div>
+                        </div>
+                    </div>
+
+                    {/* Footer */}
+                    <div className="flex justify-between items-center mt-6">
+                        <p className="text-sm text-gray-600">
+                            Created by: <span className="font-semibold text-gray-800">{challenge.createdBy}</span>
+                        </p>
+                        <button onClick={onclick} className="px-5 py-2 bg-[#17483d] text-white text-sm rounded-full shadow transition">
+                            Join Challenge
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default Challengedetails;

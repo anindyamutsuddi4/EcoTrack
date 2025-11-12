@@ -15,6 +15,7 @@ import Privateroute from './Components/Privateroute.jsx';
 import Profile from './Components/Profile.jsx';
 import Myactivities from './Components/Myactivities.jsx';
 import Allchallenges from './Components/Allchallenges.jsx';
+import Challengedetails from './Components/Challengedetails.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -41,7 +42,22 @@ const router = createBrowserRouter([
       , {
       path: "/allchallenges",
       element: <Privateroute><Allchallenges></Allchallenges></Privateroute>
-    }]
+    },
+  {
+    path:'/challenges/:id',
+    Component:Challengedetails,
+    loader:({params})=>{
+      return fetch(`http://localhost:3000/challenges/${params.id}`)
+    }
+  },
+   {
+    path:'allchallenges/challenges/:id',
+    Component:Challengedetails,
+    loader:({params})=>{
+      return fetch(`http://localhost:3000/challenges/${params.id}`)
+    }
+  },
+]
   },
 ]);
 createRoot(document.getElementById('root')).render(

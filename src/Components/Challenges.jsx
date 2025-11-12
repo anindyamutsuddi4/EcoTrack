@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router';
 
 const Challenges = ({ x }) => {
     return (
@@ -29,11 +30,12 @@ const Challenges = ({ x }) => {
                     <p className="text-sm text-gray-700 flex-1">
                         <span className="font-semibold">{x.impactMetric}</span>
                     </p>
+                    <NavLink className="h-full" to={`challenges/${x._id}`}>
+                        <button className="mt-3 w-full bg-[#17483d] hover:bg-[#0a7f6a] text-white font-medium py-2 px-3 rounded-full transition-colors duration-300">
 
-                    {/* Button */}
-                    <button className="mt-3 bg-[#17483d] hover:bg-[#0a7f6a] text-white font-medium py-2 px-3 rounded-full transition-colors duration-300">
-                        Join
-                    </button>
+                            Watch details
+
+                        </button> </NavLink>
                 </div>
             </div>
         </div>
