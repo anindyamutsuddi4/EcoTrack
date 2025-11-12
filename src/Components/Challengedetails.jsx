@@ -1,4 +1,4 @@
-import React, { use } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router';
 import { AuthContext } from './AuthContext';
 import { toast } from 'react-toastify';
@@ -7,14 +7,27 @@ const Challengedetails = () => {
     const challenge = useLoaderData();
     const { user } = use(AuthContext)
     //console.log(challenge)
-    const onclick = () => {
+    const [participants, setParticipants] = useState(challenge.participants);
+    const [refresh, setRefresh] = useState(false);
+    // Fetch participants when component mounts
+    useEffect(() => {
+        const fetchParticipants = async () => {
+            const res = await fetch(`http://localhost:3000/challenges/${challenge._id}`);
+            const data = await res.json();
+            setParticipants(data.participants);
+        };
+        fetchParticipants();
+    }, [challenge._id, refresh]);
+
+    const onclick = async () => {
         const data = {
             userId: user.email, // e.g., unique user id or email.
             challengeid: challenge._id,
             status: "Not Started",// e.g., &quot;Not Started&quot;, &quot;Ongoing&quot;, &quot;Finished&quot;progress: 0,
             joinDate: new Date()
         }
-        fetch(`http://localhost:3000/challenges/join/${challenge._id}`,
+
+       await fetch(`http://localhost:3000/challenges/join/${challenge._id}`,
             {
                 method: 'POST',
                 headers: {
@@ -29,6 +42,24 @@ const Challengedetails = () => {
                     toast("You successfully joined the challenge")
                 }
             )
+      await  fetch(`http://localhost:3000/challenges/${challenge._id}`,
+            {
+                method: 'PATCH',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify({ incrementParticipants: true }),
+
+            })
+        // .then(res => res.json())
+        // .then(
+        //     data => {
+        //         console.log('data is updated', data)
+        //         // toast("You successfully patched the challenge")
+        //     }
+        // )
+        setRefresh(prev => !prev);
+        // setParticipants(challenge.participants);
         fetch(`http://localhost:3000/myactivities/${user.email}`,
             {
                 method: 'POST',
@@ -41,10 +72,13 @@ const Challengedetails = () => {
             .then(
                 data => {
                     console.log('data after user save', data)
-                   // toast("You successfully joined the challenge")
+                    // toast("You successfully joined the challenge")
                 }
             )
-    };
+
+    }
+
+
 
     return (
         <div className="min-h-screen bg-[#17483d]  flex justify-center items-start pt-20 px-4 relative">
@@ -81,7 +115,7 @@ const Challengedetails = () => {
 
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mt-4">
                         <div className="bg-green-50 p-3 rounded-xl text-center shadow-sm">
-                            <h3 className="text-lg font-bold text-green-700">{challenge.participants}</h3>
+                            <h3 className="text-lg font-bold text-green-700">{participants}</h3>
                             <p className="text-xs text-gray-500">Participants</p>
                         </div>
                         <div className="bg-blue-50 p-3 rounded-xl text-center shadow-sm">

@@ -50,7 +50,7 @@ Every small step counts towards a healthier, greener, and more sustainable world
         }
     ];
 
-    const [selected, setselected] = useState('Select')
+    const [selected, setselected] = useState('Select one ⬇️')
     const handleSelect = (value) => {
         setselected(value)
         setfilter(challenges.filter(x => x.category == value))
@@ -67,7 +67,7 @@ Every small step counts towards a healthier, greener, and more sustainable world
                     role="button"
                     className="btn  border-none text-black shadow-md hover:scale-105 transition-transform"
                 >
-                    {selected} ⬇️
+                    {selected} 
                 </div>
                 <ul
                     tabIndex={0}
