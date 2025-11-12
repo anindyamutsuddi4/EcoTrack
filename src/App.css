@@ -1,0 +1,19 @@
+  @import "tailwindcss";
+ @plugin "daisyui" {
+  themes: light --default, dark --prefersdark;
+  themes: light --default;
+ }
+ a.active {
+  text-decoration: underline;
+  font-weight: 600;
+  font-size:larger;
+  color: #135a23;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+
+.lora {
+  font-family: "Lora", serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
