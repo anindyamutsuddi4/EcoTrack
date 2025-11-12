@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import Somechallenges from "./Somechallenges";
 import Challenges from "./Challenges";
 import { NavLink } from "react-router";
+import { AuthContext } from "./AuthContext";
 
 
 const Home = () => {
     const [challenges, setChallenges] = useState([]);
-
+const {user}=use(AuthContext)
     useEffect(() => {
         fetch("http://localhost:3000/challenges")
             .then(res => res.json())
@@ -39,6 +40,63 @@ const Home = () => {
         return () => clearInterval(timer);
     }, [slides.length]);
 
+    //  const categories = [
+    //     'Energy Conservation',
+    //     'Water Conservation',
+    //     'Sustainable Transport',
+    //     'Green Living',
+    //     'Waste Reduction',
+    //   ];
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const title = e.target.title.value;
+        const category = e.target.category.value;
+        const description = e.target.description.value;
+        const duration = e.target.duration.value;
+        const target = e.target.target.value;
+        const participants = e.target.participants.value;
+        const impactMetric = e.target.impactMetric.value;
+        const createdBy = e.target.createdBy.value;
+        const startDate = e.target.startDate.value;
+        const endDate = e.target.endDate.value;
+        const imageUrl = e.target.imageUrl.value;
+
+        const formData = {
+            title,
+            category,
+            description,
+            duration,
+            target,
+            participants,
+            impactMetric,
+            createdBy,
+            startDate,
+            endDate,
+            imageUrl,
+        };
+        console.log('Form Data', formData);
+        // Call your API here
+         fetch('http://localhost:3000/challenges', 
+            { method: 'POST',
+                  headers: {
+                'content-type': 'application/json'
+            },
+                 body: JSON.stringify(formData),
+            
+             }) .then(res => res.json())
+            .then(
+                data =>
+             console.log('data after user save', data)
+                // {
+                //     if (data.insertedId) {
+                      
+                //         newbid._id = data.insertedId
+                //         const newbids = [...bids, newbid]
+                //         setbids(newbids)
+                //     }
+                // }
+            )
+    };
     return (
         //bg-[#ccc4be]
         //bg-[#17483d] 
@@ -62,9 +120,6 @@ const Home = () => {
                         </div>
                     ))}
                 </div>
-
-                {/* Dots */}
-
             </div>
 
             <div className="flex justify-center gap-2 mt-4 pb-5">
@@ -86,6 +141,117 @@ const Home = () => {
                 }</div>
                 <NavLink to="/allchallenges">                <button className="mt-10  mx-auto flex justify-center bg-[#17483d] hover:bg-[#0a7f6a] text-white font-medium py-2 px-9 rounded-full transition-colors duration-300">Show All </button>
                 </NavLink>
+                 {
+                user&&
+                <div className=" flex mt-13 justify-center px-6">
+              <form
+                        onSubmit={handleSubmit}
+                        className="bg-white shadow-lg rounded-2xl p-4 w-full max-w-2xl mx-auto space-y-3"
+                    >
+                        <h2 className="text-xl font-semibold text-gray-800 text-center mb-2">
+                            Create New Challenge
+                        </h2>
+
+                        {/* Grid: Title + Category */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            <input
+                                type="text"
+                                name="title"
+                                placeholder="Title"
+                                className="bg-gray-100 px-2 py-2 rounded-md focus:ring-2 focus:ring-green-500 outline-none text-sm"
+                                required
+                            />
+                            <select
+                                name="category"
+                                className="bg-gray-100 px-2 py-2 rounded-md focus:ring-2 focus:ring-green-500 outline-none text-sm"
+                                required
+                            >
+                                <option value="">Select Category</option>
+                                <option value="Energy Conservation">⚡ Energy Conservation</option>
+                                <option value="Water Conservation">💧 Water Conservation</option>
+                                <option value="Sustainable Transport">🚲 Sustainable Transport</option>
+                                <option value="Green Living">🌿 Green Living</option>
+                                <option value="Waste Reduction">♻️ Waste Reduction</option>
+                            </select>
+                        </div>
+                        <textarea
+                            name="description"
+                            placeholder="Description"
+                            rows={2}
+                            className="bg-gray-100 px-2 py-2 rounded-md w-full focus:ring-2 focus:ring-green-500 outline-none text-sm"
+                            required
+                        ></textarea>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+                            <input
+                                type="number"
+                                name="duration"
+                                placeholder="Duration (days)"
+                                className="bg-gray-100 px-2 py-2 rounded-md focus:ring-2 focus:ring-green-500 outline-none text-sm"
+                                required
+                            />
+                            <input
+                                type="text"
+                                name="target"
+                                placeholder="Target"
+                                className="bg-gray-100 px-2 py-2 rounded-md focus:ring-2 focus:ring-green-500 outline-none text-sm"
+                                required
+                            />
+                            <input
+                                type="number"
+                                name="participants"
+                                placeholder="Participants"
+                                className="bg-gray-100 px-2 py-2 rounded-md focus:ring-2 focus:ring-green-500 outline-none text-sm"
+                            />
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            <input
+                                type="text"
+                                name="impactMetric"
+                                placeholder="Impact Metric"
+                                className="bg-gray-100 px-2 py-2 rounded-md focus:ring-2 focus:ring-green-500 outline-none text-sm"
+                                required
+                            />
+                            <input
+                                type="email"
+                                name="createdBy"
+                                placeholder="Created By (email)"
+                                className="bg-gray-100 px-2 py-2 rounded-md focus:ring-2 focus:ring-green-500 outline-none text-sm"
+                                required
+                            />
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+                            <input
+                                type="date"
+                                name="startDate"
+                                className="bg-gray-100 px-2 py-2 rounded-md focus:ring-2 focus:ring-green-500 outline-none text-sm"
+                                required
+                            />
+                            <input
+                                type="date"
+                                name="endDate"
+                                className="bg-gray-100 px-2 py-2 rounded-md focus:ring-2 focus:ring-green-500 outline-none text-sm"
+                                required
+                            />
+                            <input
+                                type="url"
+                                name="imageUrl"
+                                placeholder="Image URL"
+                                className="bg-gray-100 px-2 py-2 rounded-md focus:ring-2 focus:ring-green-500 outline-none text-sm"
+                            />
+                        </div>
+                        <button
+                            type="submit"
+                            className="w-full bg-[#17483d] mb-1 hover:bg-green-900 text-white font-semibold py-3 rounded-lg transition-all duration-300 shadow-md text-sm"
+                        >
+                            Create Challenge
+                        </button>
+                    </form>
+             
+                  
+
+
+
+                </div>}
             </div>
 
 

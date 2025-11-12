@@ -23,12 +23,12 @@ const Allchallenges = () => {
             .then(data => setdescription(data))
         //.finally(() => setloading(false))
     }, []);
-const overallDescription = [
-  {
-    _id: "overall-1",
-    title: "All",
-    emoji: "🌍",
-    description: `Welcome to EcoTrack! This platform brings together a variety of sustainability challenges to help you take meaningful action for a greener future.  
+    const overallDescription = [
+        {
+            _id: "overall-1",
+            title: "All",
+            emoji: "🌍",
+            description: `Welcome to EcoTrack! This platform brings together a variety of sustainability challenges to help you take meaningful action for a greener future.  
 
 Energy conservation challenges teach you how to reduce electricity usage and adopt renewable energy solutions in daily life.  
 
@@ -47,11 +47,8 @@ By participating, you contribute to a cleaner planet and inspire others to adopt
 Select a category above to learn more and start making a real impact today.  
 
 Every small step counts towards a healthier, greener, and more sustainable world!`
-  }
-];
-
-
-
+        }
+    ];
 
     const [selected, setselected] = useState('Select')
     const handleSelect = (value) => {
@@ -63,8 +60,8 @@ Every small step counts towards a healthier, greener, and more sustainable world
     const displayedescription = filter.length > 0 ? filtereddescription : overallDescription;
 
     return (
-        <div className='bg-[#17483d]'>
-            <div className="dropdown dropdown-hover pt-30 lg:ml-301">
+        <div className='bg-[#17483d] max-w-screen'>
+            <div className='lg:mr-[60px]'> <div className="dropdown flex justify-end dropdown-hover pt-30 md:mr-[170px]">
                 <div
                     tabIndex={0}
                     role="button"
@@ -102,9 +99,10 @@ Every small step counts towards a healthier, greener, and more sustainable world
                         </a>
                     </li>
                 </ul>
-            </div>
+            </div></div>
 
-            {<div className="max-w-[1350px] bg-white gap-10 px-5 py-8 rounded-2xl lg:px-15 ml-40 mr-130 ">{
+
+            {<div className="max-w-[1350px] bg-white  px-5 py-4 lg:py-8 rounded-2xl lg:px-15 ml-4 mr-4 md:ml-10 md:mr-10 lg:ml-40 lg:mr-130 ">{
                 displayedescription.map(x => (<Challengedescription key={x._id} x={x}></Challengedescription>))
             }</div>}
             {<div className="grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 pb-10 px-20 lg:px-56 pt-9">{
