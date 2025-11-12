@@ -99,7 +99,8 @@ Every small step counts towards a healthier, greener, and more sustainable world
                         </a>
                     </li>
                 </ul>
-            </div></div>
+            </div>
+            </div>
 
 
             {<div className="max-w-[1350px] bg-white  px-5 py-4 lg:py-8 rounded-2xl lg:px-15 ml-4 mr-4 md:ml-10 md:mr-10 lg:ml-40 lg:mr-130 ">{
