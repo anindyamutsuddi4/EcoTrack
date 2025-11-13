@@ -9,6 +9,7 @@ const Allchallenges = () => {
     const [filter, setfilter] = useState([])
     const [loading, setLoading] = useState(true);
     const [loadingdescriptions, setLoadingdescriptions] = useState(true);
+    const [participantnumber, setparticipantnumber] = useState('');
     //const {setloading}=use(AuthContext)
     useEffect(() => {
         //setloading(true)
@@ -64,53 +65,83 @@ Every small step counts towards a healthier, greener, and more sustainable world
         setfilter(challenges.filter(x => x.category == value))
         setfiltereddescription(description.filter(x => x.title == value))
     }
-    const displayedchallenges = filter.length > 0 ? filter : challenges;
+    const [par, setpar] = useState([])
+    const handleSelect2 = (value) => {
+        setpar(challenges.filter(x => x.participants == value))
+        //setfiltereddescription(description.filter(x => x.title == value))
+    }
+    // const displayedchallenges = filter.length > 0 ? filter : challenges;
     const displayedescription = filter.length > 0 ? filtereddescription : overallDescription;
+
+    const displayedchallenges = challenges.filter(challenge => {
+        const Para = par.length > 0 ? par.includes(challenge) : true;
+        const Other = filter.length > 0 ? filter.includes(challenge) : true;
+        return par.length > 0 ? Para && Other : Other;
+    });
+
 
     return (
         <div className='bg-[#17483d] max-w-screen'>
 
-
-            <div className='lg:mr-[60px]'> <div className="dropdown flex justify-end dropdown-hover pt-30 md:mr-[170px]">
-                <div
-                    tabIndex={0}
-                    role="button"
-                    className="btn  border-none text-black shadow-md hover:scale-105 transition-transform"
-                >
-                    {selected}
+            <div className='flex gap-2 mb-5'>
+                <div className='lg:ml-[1020px]'> <div className="dropdown flex justify-end dropdown-hover pt-30 ">
+                    <div
+                        tabIndex={0}
+                        role="button"
+                        className="btn  border-none text-black shadow-md hover:scale-105 transition-transform"
+                    >
+                        {selected}
+                    </div>
+                    <ul
+                        tabIndex={0}
+                        className="dropdown-content z-[100] menu p-2 shadow-lg bg-base-100 rounded-xl w-60"
+                    >
+                        <li>
+                            <a onClick={() => handleSelect("Energy Conservation")}>
+                                ⚡ Energy Conservation
+                            </a>
+                        </li>
+                        <li>
+                            <a onClick={() => handleSelect("Water Conservation")}>
+                                💧 Water Conservation
+                            </a>
+                        </li>
+                        <li>
+                            <a onClick={() => handleSelect("Sustainable Transport")}>
+                                🚲 Sustainable Transport
+                            </a>
+                        </li>
+                        <li>
+                            <a onClick={() => handleSelect("Green Living")}>
+                                🌿 Green Living
+                            </a>
+                        </li>
+                        <li>
+                            <a onClick={() => handleSelect("Waste Reduction")}>
+                                ♻️ Waste reduction
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-                <ul
-                    tabIndex={0}
-                    className="dropdown-content z-[100] menu p-2 shadow-lg bg-base-100 rounded-xl w-60"
-                >
-                    <li>
-                        <a onClick={() => handleSelect("Energy Conservation")}>
-                            ⚡ Energy Conservation
-                        </a>
-                    </li>
-                    <li>
-                        <a onClick={() => handleSelect("Water Conservation")}>
-                            💧 Water Conservation
-                        </a>
-                    </li>
-                    <li>
-                        <a onClick={() => handleSelect("Sustainable Transport")}>
-                            🚲 Sustainable Transport
-                        </a>
-                    </li>
-                    <li>
-                        <a onClick={() => handleSelect("Green Living")}>
-                            🌿 Green Living
-                        </a>
-                    </li>
-                    <li>
-                        <a onClick={() => handleSelect("Waste Reduction")}>
-                            ♻️ Waste reduction
-                        </a>
-                    </li>
-                </ul>
+                </div>
+
+                <div className="join mt-30">
+                    <div>
+                        <label className="input validator join-item">
+                            <input
+                                type="number"
+                                placeholder="Participant numbers"
+                                required
+                                onChange={(e) => setparticipantnumber(e.target.value)}
+                            />
+                        </label>
+                        <div className="validator-hint hidden">Enter participant numbers</div>
+                    </div>
+                    <button onClick={() => { handleSelect2(participantnumber) }} className="btn btn-neutral join-item">Search</button>
+                </div>
+
             </div>
-            </div>
+
 
 
             {<div className="max-w-[1350px] bg-white  px-5 py-4 lg:py-8 rounded-2xl lg:px-15 ml-4 mr-4 md:ml-10 md:mr-10 lg:ml-40 lg:mr-130 ">{

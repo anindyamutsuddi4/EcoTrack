@@ -4,7 +4,7 @@ import { AuthContext } from './AuthContext';
 
 
 const Myallchallenges = ({ x }) => {
-    const [selected, setselected] = useState(x.status || 'Status ⬇️')
+    const [selected, setselected] = useState('Status ⬇️')
     const { user } = use(AuthContext)
     const [isOpen, setIsOpen] = useState(false);
     // const [isActive, setIsActive] = useState(false);
@@ -47,7 +47,7 @@ const Myallchallenges = ({ x }) => {
         };
         fetchStatus();
     }, [user.email, x._id]);
-  const [Status,setStatus]=useState(x.status ||'Status')
+  const [Status,setStatus]=useState('Status')
 
     useEffect(() => {
         const fetchStatus = async () => {
@@ -126,15 +126,18 @@ const Myallchallenges = ({ x }) => {
                             onClick={() => setIsOpen(!isOpen)}
                             className="btn  border-none text-black shadow-md hover:scale-105 transition-transform"
                         >
-                            {selected||Status}
+                            {selected||Status } ⬇️
                         </div>
                         <ul
                             tabIndex={0}
                             className="dropdown-content z-[100] menu p-2 shadow-lg bg-base-100 rounded-xl w-60"
                         >
                             <li >
-                                <a onClick={() => handleSelect("Not started")}
-                                    className="px-5 py-2 text-black rounded-full transition hover:bg-[#17483d] hover:text-white shadow-lg scale-105"
+                                <a onClick={() => {handleSelect("Not started")
+                                    }
+                                    
+                                }
+                                    className="px-5 py-2 text-black rounded-full transition hover:bg-[#17483d] hover:text-white shadow-lg scale-105 "
                                 >
                                     Not started
                                 </a>
