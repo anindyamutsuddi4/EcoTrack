@@ -20,6 +20,18 @@ const Myactivities = () => {
 
 
   // }, [data?.challengeid])
+  const [ongoing, setongoing] = useState(0)
+  useEffect(() => {
+    if (!data) return
+    const count = data.filter(x => x.status === "Ongoing").length;
+    setongoing(count)
+  }, [data])
+    const [finish, setfinish] = useState(0)
+  useEffect(() => {
+    if (!data) return
+    const count = data.filter(x => x.status === "Finished").length;
+    setfinish(count)
+  }, [data])
   useEffect(() => {
     const fetchChallenges = async () => {
       if (!data || !data.length) return;
@@ -32,7 +44,7 @@ const Myactivities = () => {
         );
 
         const results = await Promise.all(promises);
-        setvalue(results); // now value is an array of challenge objects
+        setvalue(results);
       } catch (err) {
         console.error(err);
       }
@@ -41,18 +53,49 @@ const Myactivities = () => {
     fetchChallenges();
   }, [data]);
   return (
-    <div className="bg-[#17483d] pt-20  md:pt-38 pb-16 px-4 lg:px-30">
-      <div className='px-10 md:px-20 pt-10 pb-15 rounded-[100px]'>
-        <div className="text-center mb-8 px-2 md:px-4 lg:px-0">
+    <div className="bg-[#17483d] pt-20  md:pt-33 pb-16 px-4 lg:px-30">
+
+
+
+      <div className='px-10 md:px-20  pb-3 rounded-[100px]'>
+        <div className="text-center mb-2 px-2 md:px-4 lg:px-0">
           <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold text-[#f5e12d] lora">
             My Challenge Collection
           </h2>
-          <p className="mt-2 mb-15 text-white text-sm md:text-lg">
+          <p className="mt-2 mb-10 text-white text-sm md:text-lg">
             Here are all the challenges I’ve taken so far — track your progress and achievements!
           </p>
         </div>
 
-        <div className="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5 md:px-4 lg:px-0">
+        <div className="max-w-6xl border-b-2 border-gray-600 mx-auto px-4 pb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            {/* Card 1 */}
+            <div className="relative bg-[#8E988F]
+                                rounded-full h-24 flex items-center justify-center shadow-lg
+                                transform hover:scale-105 transition-transform duration-300">
+              <span className="text-white font-semibold text-lg">Not Started {value.length-ongoing-finish}</span>
+            </div>
+
+            {/* Card 2 */}
+            <div className="relative bg-[#A2A684]
+                                rounded-full h-24 flex items-center justify-center shadow-lg
+                                transform hover:scale-105 transition-transform duration-300">
+              <span className="text-white font-semibold text-lg">Ongoing {ongoing}</span>
+
+            </div>
+            {/* Card 3 */}
+            <div className="relative bg-[#966A62]
+                                rounded-full h-24 flex items-center justify-center shadow-lg
+                                transform hover:scale-105 transition-transform duration-300">
+              <span className="text-white font-semibold text-lg">Finished {finish}</span>
+
+            </div>
+
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 mt-14 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5 md:px-4 lg:px-0">
           {value.map((x, index) => (
             <Myallchallenges key={index} x={x} />
           ))}

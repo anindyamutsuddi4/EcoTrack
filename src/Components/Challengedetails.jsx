@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 
 const Challengedetails = () => {
     const challenge = useLoaderData();
-    const { user } = use(AuthContext)
+    const { user} = use(AuthContext)
 
     //console.log(challenge)
     const [participants, setParticipants] = useState(challenge.participants);
@@ -46,6 +46,7 @@ const Challengedetails = () => {
     // }
     const onclick = async () => {
         //setvalue(val)
+        // setloading(true)
         if (!toggle) {
             const data = {
                 userId: user.email, // e.g., unique user id or email.
@@ -104,6 +105,7 @@ const Challengedetails = () => {
                     }
                 )
                  settoggle(true)
+            //    .finally(() => setloading(false))
         }
     }
 const location=useLocation()

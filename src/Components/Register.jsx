@@ -73,42 +73,45 @@ const Register = () => {
     }
     return (
         <DocumentMeta {...meta}>
-            <div className='bg-[#17483d] h-screen flex  justify-center pt-36  '>
-                <form onSubmit={handlesubmit} >
-                    <fieldset className="fieldset  bg-[#fefcfb] border-base-300 shadow-md rounded-box w-xs border p-4  mx-auto ">
-                        <legend className="fieldset-legend text-2xl ">Sign Up</legend>
+            <div className='bg-[#17483d] h-screen flex  justify-center pt-22  '>
+                <div className='bg-[#bea39c] px-20 pt-30 rounded-t-full'>
+                    <form onSubmit={handlesubmit} >
+                        <fieldset className="fieldset  bg-[#fefcfb] border-base-300 shadow-md rounded-2xl w-xs border p-4  mx-auto ">
+                            <legend className="fieldset-legend text-2xl ">Sign Up</legend>
 
-                        <label className="label">Name</label>
-                        <input type="text" name="name" className="input" placeholder="Name" />
+                            <label className="label">Name</label>
+                            <input type="text" name="name" className="input" placeholder="Name" />
 
-                        <label className="label">PhotoURL</label>
-                        <input type="url" name="photourl" className="input" placeholder="PhotoURL" />
+                            <label className="label">PhotoURL</label>
+                            <input type="url" name="photourl" className="input" placeholder="PhotoURL" />
 
 
-                        <label className="label">Email</label>
-                        <input required type="email" name="email" className="input" placeholder="Email" />
+                            <label className="label">Email</label>
+                            <input required type="email" name="email" className="input" placeholder="Email" />
 
-                        <label className="label">Password</label>
-                        <div className='relative'>
-                            <input required type={watch ? "text" : "password"} name="password" className="input " placeholder="Password" />
-                            <button type="button" onClick={onwatch} className='absolute top-[35%] right-3 z-10' id="togglePassword">
-                                {watch ? <FaEyeSlash /> : <FaEye />}
+                            <label className="label">Password</label>
+                            <div className='relative'>
+                                <input required type={watch ? "text" : "password"} name="password" className="input " placeholder="Password" />
+                                <button type="button" onClick={onwatch} className='absolute top-[35%] right-3 z-10' id="togglePassword">
+                                    {watch ? <FaEyeSlash /> : <FaEye />}
+                                </button>
+                            </div>
+
+                            {msg}
+
+                            <button className="btn btn-neutral mt-4">Sign Up</button>
+                            <Link className='text-center' to="/login">Already have ab account?<span className='text-indigo-700 text-center'> Sign in</span></Link>
+                            <button onClick={handle} className="border border-gray-400  p-2 rounded-md flex items-center gap-1 text-gray-600 text-[17px]  w-full justify-center hover:bg-gray-200 hover:border-gray-400 hover:text-gray-800 transition-all duration-200">
+                                <FcGoogle size={18} />
+                                Login with Google
                             </button>
-                        </div>
-
-                        {msg}
-
-                        <button className="btn btn-neutral mt-4">Sign Up</button>
-                        <Link className='text-center' to="/login">Already have ab account?<span className='text-indigo-700 text-center'> Sign in</span></Link>
-                        <button onClick={handle} className="border border-gray-400  p-2 rounded-md flex items-center gap-1 text-gray-600 text-[17px]  w-full justify-center hover:bg-gray-200 hover:border-gray-400 hover:text-gray-800 transition-all duration-200">
-                            <FcGoogle size={18} />
-                            Login with Google
-                        </button>
 
 
-                    </fieldset>
+                        </fieldset>
 
-                </form>
+                    </form>
+                </div>
+
             </div>
 
 

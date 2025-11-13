@@ -6,10 +6,12 @@ import { AuthContext } from "./AuthContext";
 import Tips from "./Tips";
 import Righttips from "./Righttips";
 import Events from "./Events";
+import SkeletonCard from "./SkeletonCard";
 
 
 const Home = () => {
     const [challenges, setChallenges] = useState([]);
+    const [loading, setLoading] = useState(true);
     const { user } = use(AuthContext)
     useEffect(() => {
         fetch("http://localhost:3000/challenges")
@@ -24,8 +26,10 @@ const Home = () => {
     useEffect(() => {
         fetch("http://localhost:3000/recentTips")
             .then(res => res.json())
-            .then(data => settips(data)
-                //console.log(challenges)}
+            .then(data => {
+                settips(data)
+                setLoading(false);
+            }
             );
     }, []);
     const [events, setevents] = useState([])
@@ -45,7 +49,7 @@ const Home = () => {
             );
     }, []);
 
- const [stat1, setstat1] = useState([])
+    const [stat1, setstat1] = useState([])
     useEffect(() => {
         fetch("http://localhost:3000/challenges/69146057e2bdd25046c0b922")
             .then(res => res.json())
@@ -54,7 +58,7 @@ const Home = () => {
             );
     }, []);
 
- const [stat2, setstat2] = useState([])
+    const [stat2, setstat2] = useState([])
     useEffect(() => {
         fetch("http://localhost:3000/challenges/69145fd2e2bdd25046c0b91b")
             .then(res => res.json())
@@ -203,7 +207,7 @@ const Home = () => {
                         <p className="text-3xl font-extrabold text-[#874830]"><span className=" font-bold">{stat.totalImpact}</span> kg</p>
                     </div>
 
-        
+
                     <div className="bg-[#F9EBC7] text-[#5C6D66] rounded-2xl shadow-xl py-8 px-4 border border-[#A9B388] hover:scale-105 transition-transform duration-300 ease-out">
                         <h3 className="text-lg font-semibold mb-2">Water Saved</h3>
                         <p className="text-3xl font-extrabold text-[#874830]"><span className=" font-bold">{stat2.totalImpact}</span> L</p>
@@ -339,6 +343,8 @@ const Home = () => {
                         Discover useful tips and tricks to make your life greener, easier, and more efficient.
                     </p>
                 </div>
+
+
                 {
                     tips.map((x, index) => index % 2 == 0 ?
                         (<Tips key={index} x={x} ></Tips>) :
@@ -356,14 +362,19 @@ const Home = () => {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 px-5 md:px-5">
-                    {
+                {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 px-5 md:px-5">
+                    { */}
 
+                {<div className="grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2  px-5 md:px-5">{
+                    loading
+                        ? Array.from({ length: 4 }).map((_, i) => <SkeletonCard key={i} />)
+                        :
                         events.map(x => <Events key={x._id} x={x}></Events>)
-                    }
+                    //     }
+                    // </div>
 
+                } </div>}
 
-                </div>
                 <section className="bg-[#686851] h-full w-full pt-16 py-10 px-6 md:px-20 text-center relative overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-b from-[#8f917d]/40 to-transparent pointer-events-none"></div>
 

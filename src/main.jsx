@@ -16,6 +16,7 @@ import Profile from './Components/Profile.jsx';
 import Myactivities from './Components/Myactivities.jsx';
 import Allchallenges from './Components/Allchallenges.jsx';
 import Challengedetails from './Components/Challengedetails.jsx';
+import Errorpage from './Components/Errorpage.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -62,7 +63,10 @@ const router = createBrowserRouter([
       }
     }
     ]
-  },
+  },{
+    path:"*",
+  Component:Errorpage
+  }
 ]);
 createRoot(document.getElementById('root')).render(
   <StrictMode>
