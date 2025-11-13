@@ -60,7 +60,7 @@ const router = createBrowserRouter([
       loader: ({ params }) => {
         return fetch(`http://localhost:3000/myactivities/${params.email}`)
       }
-    },
+    }
     ]
   },
 ]);

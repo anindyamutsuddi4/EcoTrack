@@ -42,17 +42,17 @@ const Myactivities = () => {
   }, [data]);
   return (
     <div className="bg-[#17483d] pt-20  md:pt-38 pb-16 px-4 lg:px-30">
-      <div className='bg-[#CFC4B1] px-20 pt-10 pb-15 rounded-[100px]'>
+      <div className='px-10 md:px-20 pt-10 pb-15 rounded-[100px]'>
         <div className="text-center mb-8 px-2 md:px-4 lg:px-0">
-          <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold text-[#676127] lora">
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold text-[#f5e12d] lora">
             My Challenge Collection
           </h2>
-          <p className="mt-2 mb-15 text-[#141414] text-sm md:text-lg">
+          <p className="mt-2 mb-15 text-white text-sm md:text-lg">
             Here are all the challenges I’ve taken so far — track your progress and achievements!
           </p>
         </div>
 
-        <div className="grid grid-cols-1 bg-[#CFC4B1] px-10 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5 md:px-4 lg:px-0">
+        <div className="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5 md:px-4 lg:px-0">
           {value.map((x, index) => (
             <Myallchallenges key={index} x={x} />
           ))}

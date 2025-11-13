@@ -66,7 +66,7 @@ const Myallchallenges = ({ x }) => {
                     </div>
                     </div>
                 </div>
-                <p className="text-sm ">{x.description}</p>
+                <p className="text-sm h-100%">{x.description}</p>
 
                 <div className="flex justify-between text-xs  mt-2">
                     <span>Duration: {x.duration} days</span>
@@ -85,10 +85,10 @@ const Myallchallenges = ({ x }) => {
 
                 </div>
 
-                <div className="bg-yellow-50 p-2 rounded-xl text-center shadow-sm">
+                {/* <div className="bg-yellow-50 p-2 rounded-xl text-center shadow-sm">
                     <h3 className="text-sm font-bold text-wrap text-yellow-700">{x.createdBy}</h3>
                     <p className="text-xs text-gray-500">Created By</p>
-                </div>
+                </div> */}
                 <div className="flex justify-between items-center mt-3 text-xs ">
                     <span>Start: {x.startDate}</span>
                     <span>End: {x.endDate}</span>

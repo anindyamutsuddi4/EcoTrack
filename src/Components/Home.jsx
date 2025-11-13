@@ -36,6 +36,40 @@ const Home = () => {
                 //console.log(challenges)}
             );
     }, []);
+    const [stat, setstat] = useState([])
+    useEffect(() => {
+        fetch("http://localhost:3000/challenges/69145f6de2bdd25046c0b918")
+            .then(res => res.json())
+            .then(data => setstat(data)
+                //console.log(stat)
+            );
+    }, []);
+
+ const [stat1, setstat1] = useState([])
+    useEffect(() => {
+        fetch("http://localhost:3000/challenges/69146057e2bdd25046c0b922")
+            .then(res => res.json())
+            .then(data => setstat1(data)
+                //console.log(stat)
+            );
+    }, []);
+
+ const [stat2, setstat2] = useState([])
+    useEffect(() => {
+        fetch("http://localhost:3000/challenges/69145fd2e2bdd25046c0b91b")
+            .then(res => res.json())
+            .then(data => setstat2(data)
+                //console.log(stat)
+            );
+    }, []);
+
+    // .then(data => {
+    //     setstat(data)
+    // console.log(stat)}
+    //     //console.log(challenges)}
+    // );
+    // const [stat, setstat] = useState([])
+
     const slides = [
         {
             img: "/thick-forest-sunlight-scenic-sun-rays-green-forest-nature-pr.jpg",
@@ -70,6 +104,7 @@ const Home = () => {
     //     'Green Living',
     //     'Waste Reduction',
     //   ];
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const title = e.target.title.value;
@@ -150,6 +185,35 @@ const Home = () => {
                     ></span>
                 ))}
             </div>
+
+            <section className="w-full py-9  flex flex-col items-center text-center">
+
+                <div className="border-t-4 border-[#5C6D66] w-1/4 mb-2"></div>
+                <h2 className="text-4xl font-extrabold text-[#5C6D66] mb-7 tracking-tight">
+                    Live Community Impact
+                </h2>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full px-6 md:px-60">
+                    <div className="bg-[#5C6D66] text-[#FEFAE0] rounded-2xl shadow-xl py-8 px-4 hover:scale-105 transition-transform duration-300 ease-out">
+                        <h3 className="text-lg font-semibold mb-2"> CO₂ Saved</h3>
+                        <p className="text-3xl font-extrabold text-[#F2CE05]"> <span className=" font-bold">{stat1.totalImpact}</span> kg</p>
+                    </div>
+                    <div className="bg-[#FEFAE0] text-[#5C6D66] rounded-2xl shadow-xl py-8 px-4 border border-[#A9B388] hover:scale-105 transition-transform duration-300 ease-out">
+                        <h3 className="text-lg font-semibold mb-2">Plastic Reduced</h3>
+                        <p className="text-3xl font-extrabold text-[#874830]"><span className=" font-bold">{stat.totalImpact}</span> kg</p>
+                    </div>
+
+        
+                    <div className="bg-[#F9EBC7] text-[#5C6D66] rounded-2xl shadow-xl py-8 px-4 border border-[#A9B388] hover:scale-105 transition-transform duration-300 ease-out">
+                        <h3 className="text-lg font-semibold mb-2">Water Saved</h3>
+                        <p className="text-3xl font-extrabold text-[#874830]"><span className=" font-bold">{stat2.totalImpact}</span> L</p>
+                    </div>
+
+                </div>
+            </section>
+
+
+
             {/* bg-[#dedad8]  */}
             <div className="bg-[#CCB363] pb-15 mx-3 px-2 lg:mx-35 rounded-[50px] md:rounded-[100px] mt-8">
                 <p className="text-5xl  pt-20  font-bold lora text-center">Challenges for you</p>
@@ -301,52 +365,47 @@ const Home = () => {
 
                 </div>
                 <section className="bg-[#686851] h-full w-full pt-16 py-10 px-6 md:px-20 text-center relative overflow-hidden">
-  <div className="absolute inset-0 bg-gradient-to-b from-[#8f917d]/40 to-transparent pointer-events-none"></div>
+                    <div className="absolute inset-0 bg-gradient-to-b from-[#8f917d]/40 to-transparent pointer-events-none"></div>
 
-  <h2 className="text-4xl font-extrabold text-[#FDF7E4] mb-2 drop-shadow-md">Why Go Green?</h2>
-  <p className="text-[#E8E5D0] text-lg mb-10">Small changes create a big impact. Here’s why it matters:</p>
+                    <h2 className="text-4xl font-extrabold text-[#FDF7E4] mb-2 drop-shadow-md">Why Go Green?</h2>
+                    <p className="text-[#E8E5D0] text-lg mb-10">Small changes create a big impact. Here’s why it matters:</p>
 
-  <ul className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto text-left">
-    <li className="bg-[#F3EEE5] backdrop-blur-lg rounded-xl p-5 border border-[#A9A67E]/30 shadow-md">
-      🌱 <span className="font-semibold text-[#585753]">Save the Planet:</span> Reduce waste, conserve resources.
-    </li>
-    <li className="bg-[#F3EEE5] backdrop-blur-lg rounded-xl p-5 border border-[#A9A67E]/30 shadow-md">
-      💧 <span className="font-semibold text-[#585753]">Protect Nature:</span> Support cleaner air and water.
-    </li>
-    <li className="bg-[#F3EEE5] backdrop-blur-lg rounded-xl p-5 border border-[#A9A67E]/30 shadow-md">
-      ⚡ <span className="font-semibold text-[#585753]">Save Energy:</span> Use smarter, sustainable methods.
-    </li>
-    <li className="bg-[#F3EEE5] backdrop-blur-lg rounded-xl p-5 border border-[#A9A67E]/30 shadow-md">
-      🤝 <span className="font-semibold text-[#585753]">Inspire Others:</span> Lead your community by example.
-    </li>
-  </ul>
-</section>
-<section className="bg-[#686851] rounded-b-[90px] py-16 px-6 md:px-20 text-center relative">
-  <h2 className="text-4xl font-extrabold text-[#F7EFD8] mb-8 drop-shadow-lg">How It Works</h2>
-  <div className="flex flex-col md:flex-row items-center justify-center gap-8 max-w-5xl mx-auto">
+                    <ul className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto text-left">
+                        <li className="bg-[#F3EEE5] backdrop-blur-lg rounded-xl p-5 border border-[#A9A67E]/30 shadow-md">
+                            🌱 <span className="font-semibold text-[#585753]">Save the Planet:</span> Reduce waste, conserve resources.
+                        </li>
+                        <li className="bg-[#F3EEE5] backdrop-blur-lg rounded-xl p-5 border border-[#A9A67E]/30 shadow-md">
+                            💧 <span className="font-semibold text-[#585753]">Protect Nature:</span> Support cleaner air and water.
+                        </li>
+                        <li className="bg-[#F3EEE5] backdrop-blur-lg rounded-xl p-5 border border-[#A9A67E]/30 shadow-md">
+                            ⚡ <span className="font-semibold text-[#585753]">Save Energy:</span> Use smarter, sustainable methods.
+                        </li>
+                        <li className="bg-[#F3EEE5] backdrop-blur-lg rounded-xl p-5 border border-[#A9A67E]/30 shadow-md">
+                            🤝 <span className="font-semibold text-[#585753]">Inspire Others:</span> Lead your community by example.
+                        </li>
+                    </ul>
+                </section>
+                <section className="bg-[#686851] rounded-b-[90px] py-16 px-6 md:px-20 text-center relative">
+                    <h2 className="text-4xl font-extrabold text-[#F7EFD8] mb-8 drop-shadow-lg">How It Works</h2>
+                    <div className="flex flex-col md:flex-row items-center justify-center gap-8 max-w-5xl mx-auto">
 
-    {/* Step 1 */}
-    <div className="flex flex-col items-center bg-[#7B7D66]/60 border border-[#D6CFAF]/30 rounded-2xl p-6 w-full md:w-1/3 shadow-lg hover:scale-105 transition-transform duration-300">
-      <div className="text-3xl mb-3 text-[#F6EFC8]">🫶</div>
-      <h3 className="text-2xl font-semibold text-[#FAF7ED] mb-2">Join a Challenge</h3>
-      <p className="text-[#E8E5D0] text-sm">Choose an eco-friendly challenge and take your first green step.</p>
-    </div>
-
-    {/* Step 2 */}
-    <div className="flex flex-col items-center bg-[#7B7D66]/60 border border-[#D6CFAF]/30 rounded-2xl p-6 w-full md:w-1/3 shadow-lg hover:scale-105 transition-transform duration-300">
-      <div className="text-3xl mb-3 text-[#F6EFC8]">📊</div>
-      <h3 className="text-2xl font-semibold text-[#FAF7ED] mb-2">Track Progress</h3>
-      <p className="text-[#E8E5D0] text-sm">See your impact in real time and celebrate milestones.</p>
-    </div>
-
-    {/* Step 3 */}
-    <div className="flex flex-col items-center bg-[#7B7D66]/60 border border-[#D6CFAF]/30 rounded-2xl p-6 w-full md:w-1/3 shadow-lg hover:scale-105 transition-transform duration-300">
-      <div className="text-3xl mb-3 text-[#F6EFC8]">💬</div>
-      <h3 className="text-2xl font-semibold text-[#FAF7ED] mb-2">Share Tips</h3>
-      <p className="text-[#E8E5D0] text-sm">Spread ideas and inspire others to live sustainably.</p>
-    </div>
-  </div>
-</section>
+                        <div className="flex flex-col items-center bg-[#7B7D66]/60 border border-[#D6CFAF]/30 rounded-2xl p-6 w-full md:w-1/3 shadow-lg hover:scale-105 transition-transform duration-300">
+                            <div className="text-3xl mb-3 text-[#F6EFC8]">🫶</div>
+                            <h3 className="text-2xl font-semibold text-[#FAF7ED] mb-2">Join a Challenge</h3>
+                            <p className="text-[#E8E5D0] text-sm">Choose an eco-friendly challenge and take your first green step.</p>
+                        </div>
+                        <div className="flex flex-col items-center bg-[#7B7D66]/60 border border-[#D6CFAF]/30 rounded-2xl p-6 w-full md:w-1/3 shadow-lg hover:scale-105 transition-transform duration-300">
+                            <div className="text-3xl mb-3 text-[#F6EFC8]">📊</div>
+                            <h3 className="text-2xl font-semibold text-[#FAF7ED] mb-2">Track Progress</h3>
+                            <p className="text-[#E8E5D0] text-sm">See your impact in real time and celebrate milestones.</p>
+                        </div>
+                        <div className="flex flex-col items-center bg-[#7B7D66]/60 border border-[#D6CFAF]/30 rounded-2xl p-6 w-full md:w-1/3 shadow-lg hover:scale-105 transition-transform duration-300">
+                            <div className="text-3xl mb-3 text-[#F6EFC8]">💬</div>
+                            <h3 className="text-2xl font-semibold text-[#FAF7ED] mb-2">Share Tips</h3>
+                            <p className="text-[#E8E5D0] text-sm">Spread ideas and inspire others to live sustainably.</p>
+                        </div>
+                    </div>
+                </section>
             </div>
 
 
