@@ -11,7 +11,7 @@ const Myallchallenges = ({ x }) => {
 
     return (
 
-        <div className="relative rounded-xl border-2 border-yellow-500 bg-[#d3b613] text-black w-full h-full  shadow-xl border border-gray-200 hover:shadow-2xl transition duration-300 max-w-sm mx-auto overflow-hidden">
+        <div className="relative rounded-xl border-2 border-yellow-500 bg-[#debf0d] text-black w-full h-full  shadow-xl border border-gray-200 hover:shadow-2xl transition duration-300 max-w-sm mx-auto overflow-hidden">
             {/* Image Section */}
             <div className="relative h-52 w-full">
                 <img

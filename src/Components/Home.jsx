@@ -5,6 +5,7 @@ import { NavLink } from "react-router";
 import { AuthContext } from "./AuthContext";
 import Tips from "./Tips";
 import Righttips from "./Righttips";
+import Events from "./Events";
 
 
 const Home = () => {
@@ -27,7 +28,14 @@ const Home = () => {
                 //console.log(challenges)}
             );
     }, []);
-
+    const [events, setevents] = useState([])
+    useEffect(() => {
+        fetch("http://localhost:3000/events")
+            .then(res => res.json())
+            .then(data => setevents(data)
+                //console.log(challenges)}
+            );
+    }, []);
     const slides = [
         {
             img: "/thick-forest-sunlight-scenic-sun-rays-green-forest-nature-pr.jpg",
@@ -257,10 +265,8 @@ const Home = () => {
                             </button>
                         </form>
                     </div>}
-
-
             </div>
-            <div className="bg-[#FBEDC3] pt-15 pb-10 mt-2 mx-3 px-2 lg:mx-35 rounded-[50px] md:rounded-[100px]">
+            <div className="bg-[#FBEDC3] pt-15  mt-2 mx-3 px-2 lg:px-0 lg:mx-35 rounded-[50px] lg:rounded-t-[70px] lg:rounded-b-[90px] md:rounded-[100px]">
                 <div className="w-full bg-[#FBEDC3] py-3 flex flex-col items-center">
                     <h2 className="text-4xl md:text-5xl font-extrabold text-[#874830] mb-4 drop-shadow-md">
                         Some Tips For You
@@ -269,14 +275,82 @@ const Home = () => {
                         Discover useful tips and tricks to make your life greener, easier, and more efficient.
                     </p>
                 </div>
-
-
                 {
                     tips.map((x, index) => index % 2 == 0 ?
                         (<Tips key={index} x={x} ></Tips>) :
                         (<Righttips key={index} x={x}></Righttips>))
                 }
+                <div className="text-center pt-4 mt-14 bg-[#FBEDC3] rounded-xl mx-6 md:mx-20 relative">
+                    {/* Top border */}
+                    <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-[#6B4B3A] rounded-full mt-2"></div>
+
+                    <h1 className="text-4xl md:text-5xl font-extrabold text-[#6B4B3A] drop-shadow-lg mb-4 mt-6">
+                        🌿 Upcoming Green Events
+                    </h1>
+                    <p className="text-lg md:text-xl text-[#3E3A39]">
+                        Join local sustainability activities and make a difference in your community!
+                    </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 px-5 md:px-5">
+                    {
+
+                        events.map(x => <Events key={x._id} x={x}></Events>)
+                    }
+
+
+                </div>
+                <section className="bg-[#686851] h-full w-full pt-16 py-10 px-6 md:px-20 text-center relative overflow-hidden">
+  <div className="absolute inset-0 bg-gradient-to-b from-[#8f917d]/40 to-transparent pointer-events-none"></div>
+
+  <h2 className="text-4xl font-extrabold text-[#FDF7E4] mb-2 drop-shadow-md">Why Go Green?</h2>
+  <p className="text-[#E8E5D0] text-lg mb-10">Small changes create a big impact. Here’s why it matters:</p>
+
+  <ul className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto text-left">
+    <li className="bg-[#F3EEE5] backdrop-blur-lg rounded-xl p-5 border border-[#A9A67E]/30 shadow-md">
+      🌱 <span className="font-semibold text-[#585753]">Save the Planet:</span> Reduce waste, conserve resources.
+    </li>
+    <li className="bg-[#F3EEE5] backdrop-blur-lg rounded-xl p-5 border border-[#A9A67E]/30 shadow-md">
+      💧 <span className="font-semibold text-[#585753]">Protect Nature:</span> Support cleaner air and water.
+    </li>
+    <li className="bg-[#F3EEE5] backdrop-blur-lg rounded-xl p-5 border border-[#A9A67E]/30 shadow-md">
+      ⚡ <span className="font-semibold text-[#585753]">Save Energy:</span> Use smarter, sustainable methods.
+    </li>
+    <li className="bg-[#F3EEE5] backdrop-blur-lg rounded-xl p-5 border border-[#A9A67E]/30 shadow-md">
+      🤝 <span className="font-semibold text-[#585753]">Inspire Others:</span> Lead your community by example.
+    </li>
+  </ul>
+</section>
+<section className="bg-[#686851] rounded-b-[90px] py-16 px-6 md:px-20 text-center relative">
+  <h2 className="text-4xl font-extrabold text-[#F7EFD8] mb-8 drop-shadow-lg">How It Works</h2>
+  <div className="flex flex-col md:flex-row items-center justify-center gap-8 max-w-5xl mx-auto">
+
+    {/* Step 1 */}
+    <div className="flex flex-col items-center bg-[#7B7D66]/60 border border-[#D6CFAF]/30 rounded-2xl p-6 w-full md:w-1/3 shadow-lg hover:scale-105 transition-transform duration-300">
+      <div className="text-3xl mb-3 text-[#F6EFC8]">🫶</div>
+      <h3 className="text-2xl font-semibold text-[#FAF7ED] mb-2">Join a Challenge</h3>
+      <p className="text-[#E8E5D0] text-sm">Choose an eco-friendly challenge and take your first green step.</p>
+    </div>
+
+    {/* Step 2 */}
+    <div className="flex flex-col items-center bg-[#7B7D66]/60 border border-[#D6CFAF]/30 rounded-2xl p-6 w-full md:w-1/3 shadow-lg hover:scale-105 transition-transform duration-300">
+      <div className="text-3xl mb-3 text-[#F6EFC8]">📊</div>
+      <h3 className="text-2xl font-semibold text-[#FAF7ED] mb-2">Track Progress</h3>
+      <p className="text-[#E8E5D0] text-sm">See your impact in real time and celebrate milestones.</p>
+    </div>
+
+    {/* Step 3 */}
+    <div className="flex flex-col items-center bg-[#7B7D66]/60 border border-[#D6CFAF]/30 rounded-2xl p-6 w-full md:w-1/3 shadow-lg hover:scale-105 transition-transform duration-300">
+      <div className="text-3xl mb-3 text-[#F6EFC8]">💬</div>
+      <h3 className="text-2xl font-semibold text-[#FAF7ED] mb-2">Share Tips</h3>
+      <p className="text-[#E8E5D0] text-sm">Spread ideas and inspire others to live sustainably.</p>
+    </div>
+  </div>
+</section>
             </div>
+
+
+
 
         </div>
     );
