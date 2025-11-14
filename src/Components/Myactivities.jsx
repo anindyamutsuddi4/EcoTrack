@@ -53,9 +53,7 @@ const Myactivities = () => {
     fetchChallenges();
   }, [data]);
   return (
-    <div className="bg-[#17483d] pt-20  md:pt-33 pb-16 px-4 lg:px-30">
-
-
+    <div className="bg-[#17483d] pt-20  md:pt-33 pb-16 px-4 lg:px-20">
 
       <div className='px-10 md:px-20  pb-3 rounded-[100px]'>
         <div className="text-center mb-2 px-2 md:px-4 lg:px-0">
@@ -66,25 +64,48 @@ const Myactivities = () => {
             Here are all the challenges I’ve taken so far — track your progress and achievements!
           </p>
         </div>
+{
+  value.length==0?
+  <div className="flex flex-col items-center justify-center h-[70vh] text-center px-4">
+  <svg
+    className="w-24 h-24 text-yellow-500 mb-2 animate-bounce"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M9 17v-4h6v4m2 0a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v8a2 2 0 002 2h10z"
+    />
+  </svg>
+  <h2 className="text-3xl font-bold text-[#b69c9c] mb-7">No Challenges Joined Yet</h2>
+ 
+  <a
+    href="/allchallenges"
+    className="inline-block bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-3 px-6 rounded-full shadow-lg transition-all duration-300"
+  >
+    Explore Challenges
+  </a>
+</div>:
+<div>
+   <div className="max-w-6xl border-b-2 border-gray-600 mx-auto px-4 pb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:px-7">
 
-        <div className="max-w-6xl border-b-2 border-gray-600 mx-auto px-4 pb-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-
-            {/* Card 1 */}
             <div className="relative bg-[#8E988F]
                                 rounded-full h-24 flex items-center justify-center shadow-lg
                                 transform hover:scale-105 transition-transform duration-300">
               <span className="text-white font-semibold text-lg">Not Started {value.length-ongoing-finish}</span>
             </div>
 
-            {/* Card 2 */}
             <div className="relative bg-[#A2A684]
                                 rounded-full h-24 flex items-center justify-center shadow-lg
                                 transform hover:scale-105 transition-transform duration-300">
               <span className="text-white font-semibold text-lg">Ongoing {ongoing}</span>
 
             </div>
-            {/* Card 3 */}
             <div className="relative bg-[#966A62]
                                 rounded-full h-24 flex items-center justify-center shadow-lg
                                 transform hover:scale-105 transition-transform duration-300">
@@ -95,11 +116,16 @@ const Myactivities = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 mt-14 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5 md:px-4 lg:px-0">
+        <div className="grid mx-auto items-center grid-cols-1 mt-14 h-full md:grid-cols-2 lg:grid-cols-2 gap-11 md:px-4  lg:px-2">
           {value.map((x, index) => (
             <Myallchallenges key={index} x={x} />
           ))}
         </div>
+
+</div>
+}
+
+     
       </div>
 
 

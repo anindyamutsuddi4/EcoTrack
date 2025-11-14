@@ -93,35 +93,33 @@ const Login = () => {
                         </div>)
 
 
-                        : <form onSubmit={handlelogin}>
-                            <fieldset className="fieldset bg-base-200  border-base-300 shadow-md rounded-box w-xs border p-4  mx-auto ">
-                                <legend className="fieldset-legend text-2xl ">Sign In</legend>
+                        :
+       <div className="flex justify-center md:mt-24 lg:mb-0 md:mb-30 items-center w-full px-6 py-6 sm:px-8 sm:py-8 md:px-1 md:py-5 backdrop-blur-xl bg-white/10 shadow-2xl border-2 border-yellow-500 mt-10  lg:mt-4 rounded-3xl max-w-[400px] mx-auto">
+    <form onSubmit={handlelogin}>
+        <fieldset className="fieldset bg-base-200 border-base-300 shadow-md rounded-box border p-6 sm:p-4 w-full">
+            <legend className="fieldset-legend text-xl sm:text-2xl text-yellow-500">Sign In</legend>
 
-                                {/* <label className="label">Name</label>
-                    <input type="text" name="name" className="input" placeholder="Name" />
+            <label className="label text-sm sm:text-base">Email</label>
+            <input type="email" name="email" className="input input-sm sm:input-md" placeholder="Email" />
 
-                    <label className="label">PhotoURL</label>
-                    <input type="" name="photourl" className="input" placeholder="PhotoURL" />
- */}
+            <label className="label text-sm sm:text-base">Password</label>
+            <input required type="password" name="password" className="input input-sm sm:input-md" placeholder="Password" />
 
-                                <label className="label">Email</label>
-                                <input type="email" name="email" className="input" placeholder="Email" />
+            <button type="submit" className="btn btn-neutral mt-4 bg-[#17483d] w-full btn-sm sm:btn-md">Sign In</button>
 
-                                <label className="label">Password</label>
-                                <input required type="password" name="password" className="input" placeholder="Password" />
+            <Link className='text-center block mt-1 text-xs sm:text-sm' to="/register">Doesn't have an account?<span className='text-indigo-700'> Sign Up</span></Link>
 
-                                <button type="submit" className="btn btn-neutral mt-4">Sign In</button>
-                                <Link className='text-center' to="/register">Doesn't have an account?<span className='text-indigo-700 text-center'> Sign Up</span></Link>
-                                <p onClick={button} className='text-center underline'>Forgot Password?</p>
-                                <button type="button" onClick={handle} className="border border-gray-400 mb-4 p-2 rounded-md flex items-center gap-1 text-gray-600 text-[17px]  w-full justify-center hover:bg-gray-200 hover:border-gray-400 hover:text-gray-800 transition-all duration-200">
-                                    <FcGoogle size={18} />
-                                    Login with Google
-                                </button>
+            <p onClick={button} className='text-center underline  text-sm sm:text-sm'>Forgot Password?</p>
 
+            <button type="button" onClick={handle} className="border border-gray-400 mt-1 p-2 rounded-md flex items-center gap-1 text-gray-600 text-sm sm:text-[17px] w-full justify-center hover:bg-gray-200 hover:border-gray-400 hover:text-gray-800 transition-all duration-200">
+                <FcGoogle size={18} />
+                Login with Google
+            </button>
 
-                            </fieldset>
+        </fieldset>
+    </form>
+</div>
 
-                        </form>
                 }
 
             </div>

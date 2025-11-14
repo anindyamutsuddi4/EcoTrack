@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 
 const Challengedetails = () => {
     const challenge = useLoaderData();
-    const { user} = use(AuthContext)
+    const { user } = use(AuthContext)
 
     //console.log(challenge)
     const [participants, setParticipants] = useState(challenge.participants);
@@ -23,7 +23,7 @@ const Challengedetails = () => {
     const [toggle, settoggle] = useState(false)
 
     useEffect(() => {
-            if (!user) return
+        if (!user) return
         const fetchParticipants = async () => {
             const res = await fetch(`http://localhost:3000/myactivities/${user.email}`);
             const data = await res.json();
@@ -70,7 +70,7 @@ const Challengedetails = () => {
                         toast("You successfully joined the challenge")
                     }
                 )
-            await fetch(`http://localhost:3000/challenges/${challenge._id}`,
+            await fetch(`http://localhost:3000/challenges/${challenge._id}/join`,
                 {
                     method: 'PATCH',
                     headers: {
@@ -104,11 +104,11 @@ const Challengedetails = () => {
                         // toast("You successfully joined the challenge")
                     }
                 )
-                 settoggle(true)
+            settoggle(true)
             //    .finally(() => setloading(false))
         }
     }
-const location=useLocation()
+    const location = useLocation()
 
 
     return (
@@ -118,7 +118,7 @@ const location=useLocation()
             <img
                 src={challenge?.imageUrl}
                 alt={challenge.title}
-                className="relative bounce-slow border-2 border-yellow-500 mt-2 z-10 left-70 w-[376px]  h-[376px] object-cover rounded-2xl shadow-2xl  "
+                className="relative  border-2 border-yellow-500 mt-2 z-10 left-70 w-[376px]  h-[376px] object-cover rounded-2xl shadow-2xl  "
             />
 
             {/* Card */}
@@ -186,16 +186,16 @@ const location=useLocation()
                         <p className="text-sm text-gray-600">
                             Created by: <span className="font-semibold text-gray-800">{challenge.createdBy}</span>
                         </p>
-                        {user?(
+                        {user ? (
                             toggle ? <button onClick={onclick} className="px-5 py-2 bg-[#17483d] text-white text-sm rounded-full shadow transition">
                                 Joined
                             </button> :
-                          <button onClick={onclick} className="px-5 py-2 bg-[#17483d] text-white text-sm rounded-full shadow transition">
-                                Join Challenge
-                            </button>
-                        ):(<NavLink to='/login' state={location?.pathname||'/'}> <button  className="px-5 py-2 bg-[#17483d] text-white text-sm rounded-full shadow transition">
-                                Join Challenge
-                            </button></NavLink>)}
+                                <button onClick={onclick} className="px-5 py-2 bg-[#17483d] text-white text-sm rounded-full shadow transition">
+                                    Join Challenge
+                                </button>
+                        ) : (<NavLink to='/login' state={location?.pathname || '/'}> <button className="px-5 py-2 bg-[#17483d] text-white text-sm rounded-full shadow transition">
+                            Join Challenge
+                        </button></NavLink>)}
 
                     </div>
                 </div>

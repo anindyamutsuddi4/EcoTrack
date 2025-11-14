@@ -7,6 +7,7 @@ import Tips from "./Tips";
 import Righttips from "./Righttips";
 import Events from "./Events";
 import SkeletonCard from "./SkeletonCard";
+import Footer from "./Footer";
 
 
 const Home = () => {

@@ -73,11 +73,11 @@ const Register = () => {
     }
     return (
         <DocumentMeta {...meta}>
-            <div className='bg-[#17483d] h-screen flex  justify-center pt-22  '>
-                <div className='bg-[#bea39c] px-20 pt-30 rounded-t-full'>
+            <div className='bg-[#17483d] min-h-screen items-center flex  justify-center pt-22  '>
+  <div className="backdrop-blur-xl bg-white/10 shadow-2xl border-2 border-yellow-500 rounded-3xl p-6 lg:pl-1 lg:pr-1 sm:p-10 max-w-sm w-full">
                     <form onSubmit={handlesubmit} >
                         <fieldset className="fieldset  bg-[#fefcfb] border-base-300 shadow-md rounded-2xl w-xs border p-4  mx-auto ">
-                            <legend className="fieldset-legend text-2xl ">Sign Up</legend>
+                            <legend className="fieldset-legend text-2xl text-yellow-500">Sign Up</legend>
 
                             <label className="label">Name</label>
                             <input type="text" name="name" className="input" placeholder="Name" />
@@ -99,7 +99,7 @@ const Register = () => {
 
                             {msg}
 
-                            <button className="btn btn-neutral mt-4">Sign Up</button>
+                            <button className="btn btn-neutral mt-4 bg-[#17483d]">Sign Up</button>
                             <Link className='text-center' to="/login">Already have ab account?<span className='text-indigo-700 text-center'> Sign in</span></Link>
                             <button onClick={handle} className="border border-gray-400  p-2 rounded-md flex items-center gap-1 text-gray-600 text-[17px]  w-full justify-center hover:bg-gray-200 hover:border-gray-400 hover:text-gray-800 transition-all duration-200">
                                 <FcGoogle size={18} />
@@ -110,9 +110,10 @@ const Register = () => {
                         </fieldset>
 
                     </form>
-                </div>
+          </div>     
 
             </div>
+
 
 
         </DocumentMeta>

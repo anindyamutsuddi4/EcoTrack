@@ -83,70 +83,61 @@ Every small step counts towards a healthier, greener, and more sustainable world
     return (
         <div className='bg-[#17483d] max-w-screen'>
 
-            <div className='flex gap-2 mb-5'>
-                <div className='lg:ml-[1020px]'> <div className="dropdown flex justify-end dropdown-hover pt-30 ">
-                    <div
-                        tabIndex={0}
-                        role="button"
-                        className="btn  border-none text-black shadow-md hover:scale-105 transition-transform"
-                    >
-                        {selected}
-                    </div>
-                    <ul
-                        tabIndex={0}
-                        className="dropdown-content z-[100] menu p-2 shadow-lg bg-base-100 rounded-xl w-60"
-                    >
-                        <li>
-                            <a onClick={() => handleSelect("Energy Conservation")}>
-                                ⚡ Energy Conservation
-                            </a>
-                        </li>
-                        <li>
-                            <a onClick={() => handleSelect("Water Conservation")}>
-                                💧 Water Conservation
-                            </a>
-                        </li>
-                        <li>
-                            <a onClick={() => handleSelect("Sustainable Transport")}>
-                                🚲 Sustainable Transport
-                            </a>
-                        </li>
-                        <li>
-                            <a onClick={() => handleSelect("Green Living")}>
-                                🌿 Green Living
-                            </a>
-                        </li>
-                        <li>
-                            <a onClick={() => handleSelect("Waste Reduction")}>
-                                ♻️ Waste reduction
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                </div>
+            <div className="flex flex-col sm:flex-row justify-end gap-4 mb-5 pt-25 lg:pt-30 lg:pr-10">
+                <div className="w-full sm:w-auto flex justify-end pr-10 md:pr-1">
+                    <div className="dropdown dropdown-hover">
+                        <div
+                            tabIndex={0}
+                            role="button"
+                            className="btn border-none text-black shadow-md 
+                hover:scale-105 transition-transform
+             md:text-sm px-3 py-2 sm:px-4 sm:py-3"
+                        >
+                            {selected}
+                        </div>
 
-                <div className="join mt-30">
-                    <div>
+                        <ul
+                            tabIndex={0}
+                            className="dropdown-content z-[100] menu p-2 shadow-lg 
+                bg-base-100 rounded-xl w-44 sm:w-60  text-[10px]  md:text-sm"
+                        >
+                            <li><a onClick={() => handleSelect("Energy Conservation")}>⚡ Energy Conservation</a></li>
+                            <li><a onClick={() => handleSelect("Water Conservation")}>💧 Water Conservation</a></li>
+                            <li><a onClick={() => handleSelect("Sustainable Transport")}>🚲 Sustainable Transport</a></li>
+                            <li><a onClick={() => handleSelect("Green Living")}>🌿 Green Living</a></li>
+                            <li><a onClick={() => handleSelect("Waste Reduction")}>♻️ Waste reduction</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div className="join px-21 md:px-1 md:pr-10 flex w-full sm:w-auto">
+                    <div className="w-full sm:w-auto">
                         <label className="input validator join-item">
                             <input
                                 type="number"
                                 placeholder="Participant numbers"
                                 required
+                                className="text-sm py-2"
                                 onChange={(e) => setparticipantnumber(e.target.value)}
                             />
                         </label>
-                        <div className="validator-hint hidden">Enter participant numbers</div>
                     </div>
-                    <button onClick={() => { handleSelect2(participantnumber) }} className="btn btn-neutral join-item">Search</button>
+
+                    <button
+                        onClick={() => handleSelect2(participantnumber)}
+                        className="btn btn-neutral join-item text-sm px-4"
+                    >
+                        Search
+                    </button>
                 </div>
 
             </div>
 
 
 
+
             {<div className="max-w-[1350px] bg-white  px-5 py-4 lg:py-8 rounded-2xl lg:px-15 ml-4 mr-4 md:ml-10 md:mr-10 lg:ml-40 lg:mr-130 ">{
                 (loading || loadingdescriptions)
-                    ? Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)
+                    ? Array.from({ length: 1 }).map((_, i) => <SkeletonCard key={i} />)
                     :
                     displayedescription.map(x => (<Challengedescription key={x._id} x={x}></Challengedescription>))
             }</div>}

@@ -5,7 +5,9 @@ import { AuthContext } from './AuthContext';
 
 const Myallchallenges = ({ x }) => {
     const [selected, setselected] = useState('Status ⬇️')
-    const { user } = use(AuthContext)
+    const { user, setloading } = use(AuthContext)
+    // const [loading, setloading] = useState(false);
+    const [toast1, settoast1] = useState(false)
     const [isOpen, setIsOpen] = useState(false);
     // const [isActive, setIsActive] = useState(false);
     const handleSelect = (value) => {
@@ -29,14 +31,14 @@ const Myallchallenges = ({ x }) => {
                 const res = await fetch(`http://localhost:3000/myactivities/${user.email}/${x._id}`);
                 const data = await res.json();
                 if (data.length > 0) {
-                    // Check if any entry is Ongoing
                     const isOngoing = data.some(item => item.status === "Ongoing");
                     console.log(isOngoing)
                     // if (isOngoing) {
                     //   console.log("This challenge is ongoing!");
                     // }
-                    // Optional: set selected to latest status or first entry
+
                     setselected(data[data.length - 1].status);
+
                 } else {
                     setselected("Not started");
                 }
@@ -46,8 +48,9 @@ const Myallchallenges = ({ x }) => {
             }
         };
         fetchStatus();
+
     }, [user.email, x._id]);
-  const [Status,setStatus]=useState('Status')
+    const [Status, setStatus] = useState('Status')
 
     useEffect(() => {
         const fetchStatus = async () => {
@@ -55,14 +58,15 @@ const Myallchallenges = ({ x }) => {
                 const res = await fetch(`http://localhost:3000/myactivities/${user.email}/${x._id}`);
                 const data = await res.json();
                 if (data.length > 0) {
-                    // Check if any entry is Ongoing
                     const isOngoing = data.some(item => item.status === "Finished");
                     console.log(isOngoing)
+                    //setopen(true)
                     // if (isOngoing) {
                     //   console.log("This challenge is ongoing!");
                     // }
-                    // Optional: set selected to latest status or first entry
+
                     setStatus(data[data.length - 1].status);
+
                 } else {
                     setStatus("Not started");
                 }
@@ -74,15 +78,23 @@ const Myallchallenges = ({ x }) => {
         fetchStatus();
     }, [user.email, x._id]);
 
+    const [total, settotal] = useState(x.totalImpact || 0);
 
-    const setstatus = () => {
+// or inside useEffect if x comes from props async
+useEffect(() => {
+    settotal(x.totalImpact || 0);
+}, [x.totalImpact]);
+
+    const setstatus = async () => {
         // const data = {
         //            // userId: user.email, // e.g., unique user id or email.
         //            // challengeid: challenge._id,
         //             status: selected,// e.g., &quot;Not Started&quot;, &quot;Ongoing&quot;, &quot;Finished&quot;progress: 0,
         //            // joinDate: new Date()
         //         }
-        fetch(`http://localhost:3000/myactivities/${user.email}/${x._id}`,
+
+        setloading(true)
+         fetch(`http://localhost:3000/myactivities/${user.email}/${x._id}`,
             {
                 method: 'PATCH',
                 headers: {
@@ -91,17 +103,55 @@ const Myallchallenges = ({ x }) => {
                 body: JSON.stringify({ status: selected }),
 
             })
-        toast("You have successfully updated your challenge status")
+        try {
+            await fetch(`http://localhost:3000/${x._id}/update`,
+                {
+                    method: 'PATCH',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify({ totalImpact: total }),
+
+                })
+            toast("You have successfully updated your challenge status");
+            settoast1(true)
+        }
+        catch (err) {
+            console.error(err);
+        }
+        try {
+            const res = await fetch(`http://localhost:3000/myactivities/${user.email}/${x._id}`);
+            const data = await res.json();
+            const found = data.find(item => item.status == selected);
+            if (found) {
+//toast("Same")
+                return;
+            } else {
+                if (
+                    selected == "Finished"
+                ) {
+                    toast("Congratulations for finishing the challenge");
+                }
+                else {
+                    if (toast1 == true) {
+                        toast("You have successfully updated your challenge status");
+                    }
+                }
+            }
+        } catch (err) {
+            console.error(err);
+        }
+        finally { setloading(false) }
         //console.log(user.email)
         //setStatus(selected)
-
+        //setloading(false)
     }
+
 
     return (
 
-        <div className="relative rounded-xl border-2 border-yellow-500 bg-[#debf0d] text-black w-full h-full  shadow-xl border border-gray-200 hover:shadow-2xl transition duration-300 max-w-sm mx-auto overflow-hidden">
-            {/* Image Section */}
 
+        <div className="relative mx-auto rounded-xl border-2 border-yellow-500 bg-[#debf0d] text-black h-full  shadow-xl  hover:shadow-2xl transition duration-300 max-w-[490px] lg:w-90 w-full overflow-hidden">
             <div className="relative h-52 w-full">
                 <img
                     src={x.imageUrl}
@@ -126,16 +176,17 @@ const Myallchallenges = ({ x }) => {
                             onClick={() => setIsOpen(!isOpen)}
                             className="btn  border-none text-black shadow-md hover:scale-105 transition-transform"
                         >
-                            {selected||Status } ⬇️
+                            {selected || Status} ⬇️
                         </div>
                         <ul
                             tabIndex={0}
                             className="dropdown-content z-[100] menu p-2 shadow-lg bg-base-100 rounded-xl w-60"
                         >
                             <li >
-                                <a onClick={() => {handleSelect("Not started")
-                                    }
-                                    
+                                <a onClick={() => {
+                                    handleSelect("Not started")
+                                }
+
                                 }
                                     className="px-5 py-2 text-black rounded-full transition hover:bg-[#17483d] hover:text-white shadow-lg scale-105 "
                                 >
@@ -169,12 +220,30 @@ const Myallchallenges = ({ x }) => {
                 </div>
 
                 <div className="grid grid-cols-2 gap-2 mt-3">
-                    <div className="bg-green-50 p-2 rounded-xl text-center shadow-sm">
-                        <h3 className="text-sm font-bold text-green-700">{x.participants}</h3>
+                    <div className="bg-green-50 p-2 rounded-xl flex flex-col justify-center text-center shadow-sm">
+                        <h3 className=" text-lg font-bold text-green-700">{x.participants}</h3>
                         <p className="text-xs text-gray-500">Participants</p>
                     </div>
-                    <div className="bg-blue-50 p-2 rounded-xl text-center shadow-sm">
-                        <h3 className="text-sm font-bold text-blue-700">{x.impactMetric}</h3>
+                    <div className="bg-[#e7e9de] p-2 rounded-xl text-center shadow-sm">
+                        <h3 className="text-sm font-bold text-blue-700">
+
+                            <div className="join px-21 md:px-1 md:pr-10 flex w-full sm:w-auto">
+                            </div>
+
+
+                            <div className="w-full sm:w-auto">
+                                <label className="input validator join-item">
+                                    <input
+                                        type="number"
+                                        placeholder={`${x.totalImpact} ${x.impactMetric}  `}
+                                        required
+                                        className="text-sm py-1"
+                                        onChange={(e) => settotal(Number(e.target.value))}
+                                    />
+                                </label>
+                            </div>
+                            {/* {x.impactMetric} */}
+                        </h3>
                         <p className="text-xs text-gray-500">Impact</p>
                     </div>
 
@@ -188,7 +257,9 @@ const Myallchallenges = ({ x }) => {
                     <span>Start: {x.startDate}</span>
                     <span>End: {x.endDate}</span>
                 </div>
-                <button onClick={setstatus} className='w-full text-[18px] bg-[#17483d] rounded-full px-2 py-3 text-white'>Update status</button>
+                <button onClick={setstatus}
+
+                    className='w-full text-[18px] bg-[#17483d] rounded-full px-2 py-3 text-white'>Update status</button>
             </div>
         </div>
 

@@ -34,10 +34,8 @@ const Header = () => {
         }
         <li>|</li>
         <li><NavLink to="/allchallenges">Challenges</NavLink></li>
-        <li>|</li>
-        {
-            user && <li ><NavLink to="/profile">Profile</NavLink></li>
-        }
+      
+       
         {user && <li>|</li>}
 
         {
