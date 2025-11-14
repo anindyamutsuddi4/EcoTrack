@@ -13,7 +13,7 @@ const Challengedetails = () => {
     // Fetch participants when component mounts
     useEffect(() => {
         const fetchParticipants = async () => {
-            const res = await fetch(`http://localhost:3000/challenges/${challenge._id}`);
+            const res = await fetch(`https://ecotrack-server-side.vercel.app/challenges/${challenge._id}`);
             const data = await res.json();
             setParticipants(data.participants);
         };
@@ -25,7 +25,7 @@ const Challengedetails = () => {
     useEffect(() => {
         if (!user) return
         const fetchParticipants = async () => {
-            const res = await fetch(`http://localhost:3000/myactivities/${user.email}`);
+            const res = await fetch(`https://ecotrack-server-side.vercel.app/myactivities/${user.email}`);
             const data = await res.json();
             //setParticipants(data.participants);
             const y = data.find(x => x.challengeid === challenge._id)
@@ -55,7 +55,7 @@ const Challengedetails = () => {
                 joinDate: new Date()
             }
 
-            await fetch(`http://localhost:3000/challenges/join/${challenge._id}`,
+            await fetch(`https://ecotrack-server-side.vercel.app/challenges/join/${challenge._id}`,
                 {
                     method: 'POST',
                     headers: {
@@ -70,7 +70,7 @@ const Challengedetails = () => {
                         toast("You successfully joined the challenge")
                     }
                 )
-            await fetch(`http://localhost:3000/challenges/${challenge._id}/join`,
+            await fetch(`https://ecotrack-server-side.vercel.app/challenges/${challenge._id}/join`,
                 {
                     method: 'PATCH',
                     headers: {
@@ -89,7 +89,7 @@ const Challengedetails = () => {
             // )
             setRefresh(prev => !prev);
             // setParticipants(challenge.participants);
-            fetch(`http://localhost:3000/myactivities/${user.email}`,
+            fetch(`https://ecotrack-server-side.vercel.app/myactivities/${user.email}`,
                 {
                     method: 'POST',
                     headers: {

@@ -15,7 +15,7 @@ const Home = () => {
     const [loading, setLoading] = useState(true);
     const { user } = use(AuthContext)
     useEffect(() => {
-        fetch("http://localhost:3000/challenges")
+        fetch("https://ecotrack-server-side.vercel.app/challenges")
             .then(res => res.json())
             .then(data => setChallenges(data)
                 //console.log(challenges)}
@@ -25,7 +25,7 @@ const Home = () => {
     // const [toggle,settoggle]=useState(false)
     const [tips, settips] = useState([])
     useEffect(() => {
-        fetch("http://localhost:3000/recentTips")
+        fetch("https://ecotrack-server-side.vercel.app/recentTips")
             .then(res => res.json())
             .then(data => {
                 settips(data)
@@ -35,7 +35,7 @@ const Home = () => {
     }, []);
     const [events, setevents] = useState([])
     useEffect(() => {
-        fetch("http://localhost:3000/events")
+        fetch("https://ecotrack-server-side.vercel.app/events")
             .then(res => res.json())
             .then(data => setevents(data)
                 //console.log(challenges)}
@@ -43,7 +43,7 @@ const Home = () => {
     }, []);
     const [stat, setstat] = useState([])
     useEffect(() => {
-        fetch("http://localhost:3000/challenges/69145f6de2bdd25046c0b918")
+        fetch("https://ecotrack-server-side.vercel.app/challenges/69145f6de2bdd25046c0b918")
             .then(res => res.json())
             .then(data => setstat(data)
                 //console.log(stat)
@@ -52,7 +52,7 @@ const Home = () => {
 
     const [stat1, setstat1] = useState([])
     useEffect(() => {
-        fetch("http://localhost:3000/challenges/69146057e2bdd25046c0b922")
+        fetch("https://ecotrack-server-side.vercel.app/challenges/69146057e2bdd25046c0b922")
             .then(res => res.json())
             .then(data => setstat1(data)
                 //console.log(stat)
@@ -61,7 +61,7 @@ const Home = () => {
 
     const [stat2, setstat2] = useState([])
     useEffect(() => {
-        fetch("http://localhost:3000/challenges/69145fd2e2bdd25046c0b91b")
+        fetch("https://ecotrack-server-side.vercel.app/challenges/69145fd2e2bdd25046c0b91b")
             .then(res => res.json())
             .then(data => setstat2(data)
                 //console.log(stat)
@@ -139,7 +139,7 @@ const Home = () => {
         };
         //console.log('Form Data', formData);
         // Call your API here
-        fetch('http://localhost:3000/challenges',
+        fetch('https://ecotrack-server-side.vercel.app/challenges',
             {
                 method: 'POST',
                 headers: {

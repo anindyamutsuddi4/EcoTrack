@@ -13,7 +13,7 @@ const Allchallenges = () => {
     //const {setloading}=use(AuthContext)
     useEffect(() => {
         //setloading(true)
-        fetch("http://localhost:3000/allchallenges")
+        fetch("https://ecotrack-server-side.vercel.app/allchallenges")
             .then(res => res.json())
             .then(data => {
                 setChallenges(data)
@@ -25,7 +25,7 @@ const Allchallenges = () => {
     const [filtereddescription, setfiltereddescription] = useState([])
     useEffect(() => {
         //setloading(true)
-        fetch("http://localhost:3000/categorydescription")
+        fetch("https://ecotrack-server-side.vercel.app/categorydescription")
             .then(res => res.json())
             .then(data => {
                 setdescription(data)

@@ -35,7 +35,7 @@ const router = createBrowserRouter([
       path: '/allchallenges',
       Component: Allchallenges
     },
-   {
+    {
       path: "/allchallenges",
       element: <Privateroute><Allchallenges></Allchallenges></Privateroute>
     },
@@ -43,30 +43,30 @@ const router = createBrowserRouter([
       path: '/challenges/:id',
       Component: Challengedetails,
       loader: ({ params }) => {
-        return fetch(`http://localhost:3000/challenges/${params.id}`)
+        return fetch(`https://ecotrack-server-side.vercel.app/challenges/${params.id}`)
       }
     },
     {
       path: 'allchallenges/challenges/:id',
       Component: Challengedetails,
       loader: ({ params }) => {
-        return fetch(`http://localhost:3000/challenges/${params.id}`)
+        return fetch(`https://ecotrack-server-side.vercel.app/challenges/${params.id}`)
       }
     },
     {
       path: '/myactivities/:email',
-      element:<Privateroute><Myactivities></Myactivities></Privateroute>, 
+      element: <Privateroute><Myactivities></Myactivities></Privateroute>,
       loader: ({ params }) => {
-        return fetch(`http://localhost:3000/myactivities/${params.email}`)
+        return fetch(`https://ecotrack-server-side.vercel.app/myactivities/${params.email}`)
       }
     }
     ]
-  },{
-    path:"*",
-  Component:Errorpage
-  },{
-    path:"/footer",
-    Component:Footer
+  }, {
+    path: "*",
+    Component: Errorpage
+  }, {
+    path: "/footer",
+    Component: Footer
   }
 ]);
 createRoot(document.getElementById('root')).render(

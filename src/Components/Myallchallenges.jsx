@@ -17,7 +17,7 @@ const Myallchallenges = ({ x }) => {
     }
     // const [Status,setStatus]=useState('Status')
     // useEffect(()=>{
-    //    const data= fetch(`http://localhost:3000/myactivities/${user}/${x._id}`)
+    //    const data= fetch(`https://ecotrack-server-side.vercel.app/myactivities/${user}/${x._id}`)
     //     .then(res=>res.json())
 
     //         //setParticipants(data.participants);
@@ -28,7 +28,7 @@ const Myallchallenges = ({ x }) => {
     useEffect(() => {
         const fetchStatus = async () => {
             try {
-                const res = await fetch(`http://localhost:3000/myactivities/${user.email}/${x._id}`);
+                const res = await fetch(`https://ecotrack-server-side.vercel.app/myactivities/${user.email}/${x._id}`);
                 const data = await res.json();
                 if (data.length > 0) {
                     const isOngoing = data.some(item => item.status === "Ongoing");
@@ -55,7 +55,7 @@ const Myallchallenges = ({ x }) => {
     useEffect(() => {
         const fetchStatus = async () => {
             try {
-                const res = await fetch(`http://localhost:3000/myactivities/${user.email}/${x._id}`);
+                const res = await fetch(`https://ecotrack-server-side.vercel.app/myactivities/${user.email}/${x._id}`);
                 const data = await res.json();
                 if (data.length > 0) {
                     const isOngoing = data.some(item => item.status === "Finished");
@@ -80,10 +80,10 @@ const Myallchallenges = ({ x }) => {
 
     const [total, settotal] = useState(x.totalImpact || 0);
 
-// or inside useEffect if x comes from props async
-useEffect(() => {
-    settotal(x.totalImpact || 0);
-}, [x.totalImpact]);
+    // or inside useEffect if x comes from props async
+    useEffect(() => {
+        settotal(x.totalImpact || 0);
+    }, [x.totalImpact]);
 
     const setstatus = async () => {
         // const data = {
@@ -94,7 +94,7 @@ useEffect(() => {
         //         }
 
         setloading(true)
-         fetch(`http://localhost:3000/myactivities/${user.email}/${x._id}`,
+        fetch(`https://ecotrack-server-side.vercel.app/myactivities/${user.email}/${x._id}`,
             {
                 method: 'PATCH',
                 headers: {
@@ -104,7 +104,7 @@ useEffect(() => {
 
             })
         try {
-            await fetch(`http://localhost:3000/${x._id}/update`,
+            await fetch(`https://ecotrack-server-side.vercel.app/${x._id}/update`,
                 {
                     method: 'PATCH',
                     headers: {
@@ -120,11 +120,11 @@ useEffect(() => {
             console.error(err);
         }
         try {
-            const res = await fetch(`http://localhost:3000/myactivities/${user.email}/${x._id}`);
+            const res = await fetch(`https://ecotrack-server-side.vercel.app/myactivities/${user.email}/${x._id}`);
             const data = await res.json();
             const found = data.find(item => item.status == selected);
             if (found) {
-//toast("Same")
+                //toast("Same")
                 return;
             } else {
                 if (
