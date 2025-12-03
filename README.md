@@ -1,5 +1,5 @@
 Project name: EcoTrack
-Live Link: https://silver-madeleine-8f0d1b.netlify.app/
+Live Link: https://incredible-madeleine-02aa5c.netlify.app/
 
 Features:
 Users can join challenges such as CO₂ reduction, plastic avoidance, or green activities — all with personalized progress tracking.
