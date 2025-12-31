@@ -13,11 +13,6 @@ Project name: EcoTrack
 - **Authentication**: Firebase Authentication  
 - **Other Tools**: Git, GitHub
 
-🔹 Screenshots
-
-(Add a clean screenshot of the app here for clarity)
-
-![EcoTrack Screenshot](link-to-your-screenshot.png)
 
 🔹 Dependencies
 - React.js  
@@ -25,7 +20,7 @@ Project name: EcoTrack
 - Firebase  
 - Axios  
 - Express.js
-- Mongoose
+- MongoDb
 
 
 ### 🔹 Installation / Running Locally
