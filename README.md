@@ -31,7 +31,7 @@ Project name: EcoTrack
 ### 🔹 Installation / Running Locally
 
 1. **Clone the repository**  
-   `git clone https://github.com/yourusername/ecotrack.git`
+   `git clone https://github.com/anindyamutsuddi4/EcoTrack.git`
 
 2. **Navigate to the project folder**  
    `cd ecotrack`
