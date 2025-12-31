@@ -1,0 +1,52 @@
+[
+  {
+    "id": "691551c7c8fdd2ff0ad9a437",
+    "title": "Save Energy with LED Bulbs",
+    "content": "LED bulbs use far less electricity than traditional incandescent lights, helping you save on energy bills. They also last much longer, reducing waste and the need for frequent replacements. Switching to LEDs is one of the easiest ways to make your home more energy-efficient.",
+    "category": "Energy Conservation",
+    "author": "emma.johnson@example.com",
+    "authorName": "Emma Johnson",
+    "upvotes": 42,
+    "createdAt": "2024-02-15T09:00:00Z"
+  },
+  {
+    "id": "69155211c8fdd2ff0ad9a438",
+    "title": "Reduce Plastic with Reusable Bags",
+    "content": "Bringing your own reusable cloth or jute bags when shopping can significantly cut down plastic waste. Plastic bags often end up polluting oceans and harming wildlife. A simple switch can make your daily routine far more sustainable.",
+    "category": "Waste Management",
+    "author": "daniel.smith@example.com",
+    "authorName": "Daniel Smith",
+    "upvotes": 37,
+    "createdAt": "2024-03-05T14:20:00Z"
+  },
+  {
+    "id": "6915521bc8fdd2ff0ad9a439",
+    "title": "Start a Balcony Garden",
+    "content": "Even a small balcony can become a green space with herbs, flowers, or vegetables. Plants help clean the air and bring a touch of nature to urban living. Gardening also promotes relaxation and a sense of accomplishment.",
+    "category": "Urban Gardening",
+    "author": "olivia.brown@example.com",
+    "authorName": "Olivia Brown",
+    "upvotes": 58,
+    "createdAt": "2024-04-12T08:45:00Z"
+  },
+  {
+    "id": "6915522fc8fdd2ff0ad9a43b",
+    "title": "Bike Instead of Drive",
+    "content": "For short distances, choosing to bike or walk instead of driving reduces carbon emissions and traffic congestion. It’s also a great way to stay healthy and active. Every mile cycled is a small but powerful step for the planet.",
+    "category": "Sustainable Living",
+    "author": "sophia.davis@example.com",
+    "authorName": "Sophia Davis",
+    "upvotes": 64,
+    "createdAt": "2024-06-22T16:10:00Z"
+  },
+  {
+    "id": "6915523fc8fdd2ff0ad9a43c",
+    "title": "Compost Kitchen Waste",
+    "content": "Composting your kitchen scraps such as fruit peels and vegetable leftovers can reduce landfill waste and produce nutrient-rich soil for your garden. It’s an easy way to close the loop on your household waste.",
+    "category": "Waste Management",
+    "author": "liam.martin@example.com",
+    "authorName": "Liam Martin",
+    "upvotes": 49,
+    "createdAt": "2024-07-10T12:30:00Z"
+  }
+]

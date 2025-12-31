@@ -1,46 +1,66 @@
 import React, { use, useEffect, useState } from "react";
 import Somechallenges from "./Somechallenges";
 import Challenges from "./Challenges";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import { AuthContext } from "./AuthContext";
 import Tips from "./Tips";
 import Righttips from "./Righttips";
 import Events from "./Events";
 import SkeletonCard from "./SkeletonCard";
 import Footer from "./Footer";
-
+//import useAxiosSecure from "../useAxiosSecure";
+//import { useQuery } from '@tanstack/react-query';
 
 const Home = () => {
     const [challenges, setChallenges] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const navigate = useNavigate()
+    // const [loading, setLoading] = useState(true);
+    //  const [challengesLoading, setChallengesLoading] = useState(true);
     const { user } = use(AuthContext)
+    //const axiosSecure = useAxiosSecure()
     useEffect(() => {
         fetch("https://ecotrack-server-side.vercel.app/challenges")
             .then(res => res.json())
-            .then(data => setChallenges(data)
-                //console.log(challenges)}
-            );
-
+            .then(data => {
+                console.log("RAW RESPONSE:", data);
+                console.log("IS ARRAY:", Array.isArray(data));
+                setChallenges(data);
+            })
+            .catch(err => console.error(err));
     }, []);
+
     // const [toggle,settoggle]=useState(false)
     const [tips, settips] = useState([])
     useEffect(() => {
-        fetch("https://ecotrack-server-side.vercel.app/recentTips")
-            .then(res => res.json())
-            .then(data => {
-                settips(data)
-                setLoading(false);
-            }
-            );
-    }, []);
+        fetch('/Tips.json').then(res => res.json())
+            .then(res => {
+                //  console.log(res)
+                settips(res)
+            })
+    }, [])
     const [events, setevents] = useState([])
+    // useEffect(() => {
+    //     fetch("https://ecotrack-server-side.vercel.app/events")
+    //         .then(res => res.json())
+    //         .then(data => setevents(data)
+
+    //         );
+    // }, []);
+
+    // const {  data:events=[]  } = useQuery({
+    //     queryKey: ['events'],
+    //     queryFn: async () => {
+    //         const res = await axiosSecure.get("/events")
+    //         return res.data
+    //     }
+    // })
     useEffect(() => {
-        fetch("https://ecotrack-server-side.vercel.app/events")
-            .then(res => res.json())
-            .then(data => setevents(data)
-                //console.log(challenges)}
-            );
-    }, []);
+        fetch('/Events.json').then(res => res.json())
+            .then(res => {
+                //  console.log(res)
+                setevents(res)
+            })
+    }, [])
     const [stat, setstat] = useState([])
     useEffect(() => {
         fetch("https://ecotrack-server-side.vercel.app/challenges/69145f6de2bdd25046c0b918")
@@ -75,32 +95,25 @@ const Home = () => {
     // );
     // const [stat, setstat] = useState([])
 
-    const slides = [
-        {
-            img: "/thick-forest-sunlight-scenic-sun-rays-green-forest-nature-pr.jpg",
-            title: "Grow a Greener Future",
-            desc: "Join sustainability challenges and track your eco-impact.",
-        },
-        {
-            img: "/bc44740d7726b9c02abb61edcac9fe7d.jpg",
-            title: "Reduce, Reuse, Recycle",
-            desc: "Share eco-friendly tips and inspire your community.",
-        },
-        {
-            img: "/5dfbe3f35b19f0a4672b6219e285b9bd.jpg",
-            title: "Act Local, Impact Global",
-            desc: "Find and join local green events near you.",
-        },
-    ];
+    // const slides = [
+    //     {
+    //         img: "/thick-forest-sunlight-scenic-sun-rays-green-forest-nature-pr.jpg",
+    //         title: "Grow a Greener Future",
+    //         desc: "Join sustainability challenges and track your eco-impact.",
+    //     },
+    //     {
+    //         img: "/bc44740d7726b9c02abb61edcac9fe7d.jpg",
+    //         title: "Reduce, Reuse, Recycle",
+    //         desc: "Share eco-friendly tips and inspire your community.",
+    //     },
+    //     {
+    //         img: "/5dfbe3f35b19f0a4672b6219e285b9bd.jpg",
+    //         title: "Act Local, Impact Global",
+    //         desc: "Find and join local green events near you.",
+    //     },
+    // ];
 
-    const [index, setIndex] = useState(0);
 
-    useEffect(() => {
-        const timer = setInterval(() => {
-            setIndex((prev) => (prev + 1) % slides.length);
-        }, 4000);
-        return () => clearInterval(timer);
-    }, [slides.length]);
 
     //  const categories = [
     //     'Energy Conservation',
@@ -152,46 +165,37 @@ const Home = () => {
                 data => {
                     console.log('data after user save', data)
                     e.target.reset()
+
                 }
             )
     };
     return (
         //bg-[#ccc4be]
         //bg-[#17483d] 
-        <div className=" bg-[#17483d]  min-h-screen pt-40">
-            <div className="relative w-full max-w-4xl mx-auto overflow-hidden rounded-xl shadow-md">
-                <div
-                    className="flex transition-transform duration-[2000ms] ease-in-out"
-                    style={{ transform: `translateX(-${index * 100}%)` }}
-                >
-                    {slides.map((slide, i) => (
-                        <div key={i} className="min-w-full relative">
-                            <img
-                                src={slide.img}
-                                alt={slide.title}
-                                className="w-full h-[450px] object-cover sm:h-[300px]"
-                            />
-                            <div className="absolute inset-0 bg-black/25 flex flex-col justify-center items-center text-center text-white px-4">
-                                <h2 className="text-xl md:text-4xl font-bold mb-2">{slide.title}</h2>
-                                <p className="text-base md:text-md">{slide.desc}</p>
-                            </div>
-                        </div>
-                    ))}
+        <div className=" bg-[#17483d]  min-h-screen pt-14">
+            <div className="relative w-full  h-[55vh] flex flex-col justify-center items-center text-center px-4 sm:px-6 md:pt-12">
+                <div className="bg-gradient-to-r from-[#afbf72] to-[#44633b] rounded-3xl shadow-2xl p-6 sm:p-10 md:p-10 max-w-4xl w-full">
+
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white drop-shadow-lg mb-3">
+                        Grow a Greener Future
+                    </h1>
+
+                    <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white drop-shadow-md max-w-2xl mx-auto mb-4">
+                        Join our sustainability challenges and make a real impact in your community.
+                    </p>
+
+                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+                        <button onClick={() => navigate('/register')} className="bg-white text-green-700 font-semibold py-2 sm:py-3 px-6 sm:px-8 rounded-full shadow-lg hover:bg-gray-100 transition-all duration-300">
+                            Get Started
+                        </button>
+                        <button className="bg-transparent border-2 border-white text-white font-semibold py-2 sm:py-3 px-6 sm:px-8  rounded-full shadow-lg hover:bg-white hover:text-green-700 transition-all duration-300">
+                            Learn More
+                        </button>
+                    </div>
+
                 </div>
             </div>
-
-            <div className="flex justify-center gap-2 mt-4 pb-5">
-                {slides.map((_, i) => (
-                    <span
-                        key={i}
-                        className={`h-2 w-2 rounded-full cursor-pointer transition-all ${index === i ? "bg-green-800" : "bg-gray-400"
-                            }`}
-                        onClick={() => setIndex(i)}
-                    ></span>
-                ))}
-            </div>
-
-            <section className="w-full py-9  flex flex-col items-center text-center">
+            <section className="w-full py-6  flex flex-col items-center text-center">
 
                 <div className="border-t-4 border-[#5C6D66] w-1/4 mb-2"></div>
                 <h2 className="text-4xl font-extrabold text-[#5C6D66] mb-7 tracking-tight">
@@ -222,11 +226,18 @@ const Home = () => {
             {/* bg-[#dedad8]  */}
             <div className="bg-[#CCB363] pb-15 mx-3 px-2 lg:mx-35 rounded-[50px] md:rounded-[100px] mt-8">
                 <p className="text-5xl  pt-20  font-bold lora text-center">Challenges for you</p>
-                <p className="font-md text-center text-gray-600 text-xl pt-2 pb-12">Explore Ongoing Sustainability Challenges and Take Action for a <span className="text-green-900 font-semibold"> Greener </span>
+                <p className="font-md text-center text-gray-600 text-xl pt-2 pb-12">Explore Ongoing Sustainability Challenges and Take Action for a <span className="text-green-900 font-bold"> Greener </span>
                     Tomorrow...</p>
-                <div className="grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-10 md:px-26 pt-5">{
-                    challenges.map(x => (<Challenges key={x._id} x={x}></Challenges>))
-                }</div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-10 md:px-26 pt-5">
+                    {challenges.length === 0
+                        ? <p className="text-center lg:text-2xl mx-auto text-white">Challenges are loading...</p>
+                        : challenges.map(x => (
+                            <Challenges key={x._id || x.id} x={x} />
+                        ))
+                    }
+
+                </div>
+
                 <NavLink to="/allchallenges">                <button className="mt-10  mx-auto flex justify-center bg-[#17483d] hover:bg-[#0a7f6a] text-white font-medium py-2 px-9 rounded-full transition-colors duration-300">Show All </button>
                 </NavLink>
                 {
@@ -366,15 +377,11 @@ const Home = () => {
                 {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 px-5 md:px-5">
                     { */}
 
-                {<div className="grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2  px-5 md:px-5">{
-                    loading
-                        ? Array.from({ length: 4 }).map((_, i) => <SkeletonCard key={i} />)
-                        :
-                        events.map(x => <Events key={x._id} x={x}></Events>)
-                    //     }
-                    // </div>
+                <div className="grid lg:mt-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2  px-5 md:px-5">
 
-                } </div>}
+                    {events.map(x => (<Events key={x._id} x={x}></Events>))
+                    }
+                </div>
 
                 <section className="bg-[#686851] h-full w-full pt-16 py-10 px-6 md:px-20 text-center relative overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-b from-[#8f917d]/40 to-transparent pointer-events-none"></div>

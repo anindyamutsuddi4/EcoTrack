@@ -1,0 +1,42 @@
+[
+  {
+    "id": "69158112c43bd76dab1fe6d8",
+    "title": "Urban Recycling Workshop",
+    "description": "Learn smart tips to recycle effectively at home",
+    "date": "2024-04-05T14:00:00Z",
+    "location": "Battersea Park, London, UK",
+    "organizer": "michael.brown@example.com",
+    "maxParticipants": 30,
+    "currentParticipants": 22
+  },
+  {
+    "id": "69158107c43bd76dab1fe6d7",
+    "title": "Beach Litter Removal",
+    "description": "Volunteer to remove plastics and litter from the beach",
+    "date": "2024-03-22T10:00:00Z",
+    "location": "Brighton Beach, Brighton & Hove, UK",
+    "organizer": "emily.jones@example.com",
+    "maxParticipants": 60,
+    "currentParticipants": 45
+  },
+  {
+    "id": "691580fbc43bd76dab1fe6d6",
+    "title": "Tree Planting Drive",
+    "description": "Help plant 100 trees in the community garden",
+    "date": "2024-03-10T08:30:00Z",
+    "location": "Queen Elizabeth Olympic Park, London, UK",
+    "organizer": "john.doe@example.com",
+    "maxParticipants": 40,
+    "currentParticipants": 28
+  },
+  {
+    "id": "691580f1c43bd76dab1fe6d5",
+    "title": "Community Clean‑up Day",
+    "description": "Join neighbourhood clean‑up event",
+    "date": "2024-02-15T09:00:00Z",
+    "location": "Hyde Park, London, UK",
+    "organizer": "alice.smith@example.com",
+    "maxParticipants": 50,
+    "currentParticipants": 35
+  }
+]

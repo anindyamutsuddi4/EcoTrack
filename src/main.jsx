@@ -12,12 +12,12 @@ import Register from './Components/Register.jsx';
 import Challenges from './Components/Challenges.jsx';
 import { ToastContainer } from 'react-toastify';
 import Privateroute from './Components/Privateroute.jsx';
-
 import Myactivities from './Components/Myactivities.jsx';
 import Allchallenges from './Components/Allchallenges.jsx';
 import Challengedetails from './Components/Challengedetails.jsx';
 import Errorpage from './Components/Errorpage.jsx';
 import Footer from './Components/Footer.jsx';
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -56,9 +56,6 @@ const router = createBrowserRouter([
     {
       path: '/myactivities/:email',
       element: <Privateroute><Myactivities></Myactivities></Privateroute>,
-      loader: ({ params }) => {
-        return fetch(`https://ecotrack-server-side.vercel.app/myactivities/${params.email}`)
-      }
     }
     ]
   }, {

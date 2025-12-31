@@ -1,14 +1,41 @@
-import React, { useEffect, useState } from 'react';
-import { useLoaderData } from 'react-router';
+import React, { use, useEffect, useState } from 'react';
 import Myallchallenges from './Myallchallenges';
-
+import { AuthContext } from './AuthContext';
 const Myactivities = () => {
+  const [data, setData] = useState(null);
   const [value, setvalue] = useState([])
-  const data = useLoaderData()
   const [loading, setLoading] = useState(true);
+  const { user } = use(AuthContext)
   //console.log(data.challengeid)
   //console.log(value)
   const [ongoing, setongoing] = useState(0)
+  useEffect(() => {
+    if (!user?.email) return;
+
+    const fetchUserActivities = async () => {
+      try {
+        const res = await fetch(
+          `https://ecotrack-server-side.vercel.app/myactivities/${user.email}`
+        );
+        if (!res.ok) {
+          setData([]);
+          return;
+        }
+
+        const json = await res.json();
+        setData(Array.isArray(json) ? json : []);
+
+        // const json = await res.json();
+        //setData(json);
+      } catch (err) {
+        console.error(err);
+        setData([]);
+      }
+    };
+
+    fetchUserActivities();
+  }, [user?.email]);
+
   useEffect(() => {
     if (!data) return
 
@@ -17,7 +44,6 @@ const Myactivities = () => {
     const count2 = data.filter(x => x.status === "Finished").length;
     setfinish(count2)
 
-
   }, [data])
   const [finish, setfinish] = useState(0)
   // useEffect(() => {
@@ -25,22 +51,32 @@ const Myactivities = () => {
   //   const count = data.filter(x => x.status === "Finished").length;
   //   setfinish(count)
   // }, [data])
+
   useEffect(() => {
+    if (!user?.email) return
+    if (!data?.length) return;
     const fetchChallenges = async () => {
-      if (!data || !data.length) {
-        setLoading(false);
-        return;
-      }
+      // if (!data || !data.length) {
+      //   setLoading(false);
+      //   return;
+      // }
 
       try {
-        // Fetch all challenges the user has
+        // const promises = data.map(item =>
+        //   fetch(`https://ecotrack-server-side.vercel.app/challenges/${item.challengeid}`)
+        //     .then(res => res.json())
+        // );
+        // const results = await Promise.all(promises);
+        // setvalue(results);
+
         const promises = data.map(item =>
           fetch(`https://ecotrack-server-side.vercel.app/challenges/${item.challengeid}`)
-            .then(res => res.json())
+            .then(res => res.ok ? res.json() : null)
         );
 
-        const results = await Promise.all(promises);
+        const results = (await Promise.all(promises)).filter(Boolean);
         setvalue(results);
+
       } catch (err) {
         console.error(err);
       }
@@ -50,7 +86,30 @@ const Myactivities = () => {
     };
 
     fetchChallenges();
-  }, [data]);
+  }, [user?.email, data])
+  useEffect(() => {
+    const ping = () => {
+      fetch("https://ecotrack-server-side.vercel.app/ping").catch(() => { });
+    };
+
+    ping();
+    const interval = setInterval(ping, 5 * 60 * 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  if (!user?.email || !Array.isArray(data)) {
+    return (
+      <div className="flex items-center justify-center h-screen" >
+        <div className="flex flex-col items-center">
+          <div className="w-14 h-14 border-4 border-yellow-400 border-dashed rounded-full animate-spin"></div>
+          <p className="text-white mt-4 text-lg">Loading your challenges...</p>
+        </div>
+      </div >
+    );
+  }
+
+
   return (
     <div>
       {
