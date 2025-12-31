@@ -1,17 +1,17 @@
 Project name: EcoTrack
 
-🔹 Features
-Challenge Management: Join challenges categorized as Not Started, Ongoing, and Finished with live statistics.
-Authentication: Secure Login & Registration with Firebase Authentication, including Google Sign-In.
-Responsive UI: Beautifully designed interface using Tailwind CSS, optimized for mobile, tablet, and large screens.
-Real-Time Data: All challenge data fetched from a Node.js + Express + MongoDB server deployed on Vercel.
+### 🔹 Features
+- **Challenge Management**: Join challenges categorized as **Not Started**, **Ongoing**, and **Finished** with live statistics.  
+- **Authentication**: Secure **Login & Registration** with Firebase Authentication, including **Google Sign-In**.  
+- **Responsive UI**: Beautifully designed interface using **Tailwind CSS**, optimized for mobile, tablet, and large screens.  
+- **Real-Time Data**: All challenge data fetched from a **Node.js + Express + MongoDB** server deployed on **Vercel**.  
 
-🔹 Technologies Used
-Frontend: React.js, Tailwind CSS
-Backend: Node.js, Express
-Database: MongoDB
-Authentication: Firebase Authentication
-Other Tools: Git, GitHub
+### 🔹 Technologies Used
+- **Frontend**: React.js, Tailwind CSS  
+- **Backend**: Node.js, Express  
+- **Database**: MongoDB  
+- **Authentication**: Firebase Authentication  
+- **Other Tools**: Git, GitHub
 
 🔹 Screenshots
 
@@ -20,22 +20,42 @@ Other Tools: Git, GitHub
 ![EcoTrack Screenshot](link-to-your-screenshot.png)
 
 🔹 Dependencies
-React.js
-Tailwind CSS
-Firebase
-Axios
-Express.js
+- React.js  
+- Tailwind CSS  
+- Firebase  
+- Axios  
+- Express.js
+- Mongoose
 
-🔹 Installation / Running Locally
-Clone the repository - git clone https://github.com/yourusername/ecotrack.git
-Navigate to project folder- cd ecotrack
-Install dependencies for frontend -npm install
-Install dependencies for backend -cd server
-                                  npm install
-Create .env file with necessary Firebase and MongoDB credentials.
-Run the backend server - npm start
-Run the frontend - npm start
-Open http://localhost:3000 in your browser.
+
+### 🔹 Installation / Running Locally
+
+1. **Clone the repository**  
+   `git clone https://github.com/yourusername/ecotrack.git`
+
+2. **Navigate to the project folder**  
+   `cd ecotrack`
+
+3. **Install frontend dependencies**  
+   `npm install`
+
+4. **Navigate to the backend folder**  
+   `cd server`
+
+5. **Install backend dependencies**  
+   `npm install`
+
+6. **Create a `.env` file** with necessary Firebase and MongoDB credentials
+
+7. **Run the backend server**  
+   `npm start`
+
+8. **Run the frontend**  
+   `npm start`
+
+9. **Open the app in your browser**  
+   [http://localhost:3000](http://localhost:3000)
+
 
  🔹 Live Link: https://eco-track-9f04e.web.app/
 
