@@ -1,14 +1,18 @@
 import React, { use, useEffect, useState } from 'react';
 import Myallchallenges from './Myallchallenges';
 import { AuthContext } from './AuthContext';
+// import useAxiosSecure from '../useAxiosSecure';
+// import { useQuery } from '@tanstack/react-query';
 const Myactivities = () => {
-  const [data, setData] = useState(null);
-  const [value, setvalue] = useState([])
+
+  //const [value, setvalue] = useState([])
   const [loading, setLoading] = useState(true);
   const { user } = use(AuthContext)
   //console.log(data.challengeid)
   //console.log(value)
   const [ongoing, setongoing] = useState(0)
+  const [finish, setfinish] = useState(0)
+  const [data, setData] = useState(null);
   useEffect(() => {
     if (!user?.email) return;
 
@@ -35,68 +39,88 @@ const Myactivities = () => {
 
     fetchUserActivities();
   }, [user?.email]);
-
+  //console.log(data)
+  // const axiosSecure = useAxiosSecure();
+  // const { refetch, data = [] } = useQuery({
+  //   queryKey: ["myactivities", user?.email],
+  //   enabled: !!user?.email,
+  //   queryFn: async () => {
+  //     const res = await axiosSecure.get(`https://ecotrack-server-side.vercel.app/myactivities/${user.email}`);
+  //     setLoading(false)
+  //     refetch()
+  //     return res.data;
+  //   },
+  // });
   useEffect(() => {
     if (!data) return
 
-    const count = data.filter(x => x.status === "Ongoing").length;
+    const count = data.filter(x => x.status == "Ongoing").length;
     setongoing(count)
-    const count2 = data.filter(x => x.status === "Finished").length;
+    const count2 = data.filter(x => x.status == "Finished").length;
     setfinish(count2)
-
+    // refetch()
   }, [data])
-  const [finish, setfinish] = useState(0)
+  //console.log(data)
+  //console.log(data.length - ongoing - finish)
+
   // useEffect(() => {
   //   if (!data) return
   //   const count = data.filter(x => x.status === "Finished").length;
   //   setfinish(count)
   // }, [data])
 
+
+
+
   useEffect(() => {
     if (!user?.email) return
-    if (!data?.length) return;
-    const fetchChallenges = async () => {
-      // if (!data || !data.length) {
-      //   setLoading(false);
-      //   return;
-      // }
+    if (!data?.length) {
+      //setvalue([]);
+      setLoading(false);
+      return;
+    }
+    // const fetchChallenges = async () => {
+    //   // if (!data || !data.length) {
+    //   //   setLoading(false);
+    //   //   return;
+    //   // }
 
-      try {
-        // const promises = data.map(item =>
-        //   fetch(`https://ecotrack-server-side.vercel.app/challenges/${item.challengeid}`)
-        //     .then(res => res.json())
-        // );
-        // const results = await Promise.all(promises);
-        // setvalue(results);
+    //   try {
+    //     // const promises = data.map(item =>
+    //     //   fetch(`https://ecotrack-server-side.vercel.app/challenges/${item.challengeid}`)
+    //     //     .then(res => res.json())
+    //     // );
+    //     // const results = await Promise.all(promises);
+    //     // setvalue(results);
 
-        const promises = data.map(item =>
-          fetch(`https://ecotrack-server-side.vercel.app/challenges/${item.challengeid}`)
-            .then(res => res.ok ? res.json() : null)
-        );
+    //     const promises = data.map(item =>
+    //       fetch(`https://ecotrack-server-side.vercel.app/challenges/${item.challengeid}`)
+    //         .then(res => res.ok ? res.json() : null)
+    //     );
 
-        const results = (await Promise.all(promises)).filter(Boolean);
-        setvalue(results);
+    //     const results = (await Promise.all(promises)).filter(Boolean);
+    //     setvalue(results);
 
-      } catch (err) {
-        console.error(err);
-      }
-      finally {
-        setLoading(false);
-      }
-    };
+    //   } catch (err) {
+    //     console.error(err);
+    //   }
+    //   finally {
+    //     setLoading(false);
+    //   }
+    // };
 
-    fetchChallenges();
+    //fetchChallenges();
   }, [user?.email, data])
-  useEffect(() => {
-    const ping = () => {
-      fetch("https://ecotrack-server-side.vercel.app/ping").catch(() => { });
-    };
+  // useEffect(() => {
+  //   const ping = () => {
+  //     fetch("https://ecotrack-server-side.vercel.app/ping").catch(() => { });
+  //   };
 
-    ping();
-    const interval = setInterval(ping, 5 * 60 * 1000);
+  //   ping();
+  //   const interval = setInterval(ping, 5 * 60 * 1000);
 
-    return () => clearInterval(interval);
-  }, []);
+  //   return () => clearInterval(interval);
+  // }, []);
 
   if (!user?.email || !Array.isArray(data)) {
     return (
@@ -123,7 +147,7 @@ const Myactivities = () => {
         ) :
 
           (
-            <div className="bg-[#17483d] pt-20  md:pt-33 pb-16 px-4 lg:px-20">
+            <div className="bg-[#17483d] pt-20 min-h-screen md:pt-16 pb-16 px-4 lg:px-20">
 
               <div className='px-10 md:px-20  pb-3 rounded-[100px]'>
                 <div className="text-center mb-2 px-2 md:px-4 lg:px-0">
@@ -135,7 +159,7 @@ const Myactivities = () => {
                   </p>
                 </div>
                 {
-                  value.length == 0 ?
+                  data.length == 0 ?
                     <div className="flex flex-col items-center justify-center h-[70vh] text-center px-4">
                       <svg
                         className="w-24 h-24 text-yellow-500 mb-2 animate-bounce"
@@ -167,7 +191,7 @@ const Myactivities = () => {
                           <div className="relative bg-[#8E988F]
                                 rounded-full h-24 flex items-center justify-center shadow-lg
                                 transform hover:scale-105 transition-transform duration-300">
-                            <span className="text-white font-semibold text-lg">Not Started {value.length - ongoing - finish}</span>
+                            <span className="text-white font-semibold text-lg">Not Started {data.length - ongoing - finish}</span>
                           </div>
 
                           <div className="relative bg-[#A2A684]
@@ -187,7 +211,7 @@ const Myactivities = () => {
                       </div>
 
                       <div className="grid mx-auto items-center grid-cols-1 mt-14 h-full md:grid-cols-2 lg:grid-cols-2 gap-11 md:px-4  lg:px-2">
-                        {value.map((x, index) => (
+                        {data.map((x, index) => (
                           <Myallchallenges key={index} x={x} />
                         ))}
                       </div>

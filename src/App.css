@@ -25,3 +25,13 @@
 .bounce-slow {
   animation: bounce-slow 2s infinite;
 }
+html {
+  scroll-behavior: smooth;
+}
+@import "slick-carousel/slick/slick.css";
+@import "slick-carousel/slick/slick-theme.css";
+
+:root {
+  --color-primary: #17483d;  
+  --color-secondary: #a3e635;
+}

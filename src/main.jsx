@@ -17,7 +17,15 @@ import Allchallenges from './Components/Allchallenges.jsx';
 import Challengedetails from './Components/Challengedetails.jsx';
 import Errorpage from './Components/Errorpage.jsx';
 import Footer from './Components/Footer.jsx';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import Myevents from './Components/Myevents.jsx';
+import BlogsCarousel from './Components/Blogs.jsx';
+import DemoCertificate from './Components/Certificate.jsx';
+import DashboardLayout from './Components/DashboardLayout.jsx';
+import DashboardHomepage from './Components/DashboardHomepage.jsx';
+import Allstats from './Components/Allstats.jsx';
 
+const queryClient = new QueryClient()
 const router = createBrowserRouter([
   {
     path: "/",
@@ -56,6 +64,42 @@ const router = createBrowserRouter([
     {
       path: '/myactivities/:email',
       element: <Privateroute><Myactivities></Myactivities></Privateroute>,
+    },
+    {
+      path: "/myevents",
+      element: <Privateroute><Myevents></Myevents></Privateroute>
+    }
+      ,
+    {
+      path: "/blogs",
+      element: <BlogsCarousel></BlogsCarousel>
+    },
+    {
+      path: "/rewards",
+      element: <DemoCertificate></DemoCertificate>
+    },
+    {
+      path: "/allstats",
+      element: <Allstats></Allstats>
+    },
+    {
+      path: "/dashboard",
+      element: <Privateroute><DashboardLayout></DashboardLayout></Privateroute>,
+      children: [{
+        index: true,
+        element: <Privateroute><DashboardHomepage></DashboardHomepage></Privateroute>
+      },
+      {
+        path: '/dashboard/myactivities/:email',
+        element: <Privateroute><Myactivities></Myactivities></Privateroute>,
+      },
+
+      {
+        path: "/dashboard/myevents",
+        element: <Privateroute><Myevents></Myevents></Privateroute>
+      }
+
+      ]
     }
     ]
   }, {
@@ -68,7 +112,9 @@ const router = createBrowserRouter([
 ]);
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <AuthProvider>  <RouterProvider router={router} /></AuthProvider>
-    <ToastContainer />
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>  <RouterProvider router={router} /></AuthProvider>
+      <ToastContainer />
+    </QueryClientProvider>
   </StrictMode>,
 )

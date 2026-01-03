@@ -1,25 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { AuthContext } from './AuthContext';
+// import { useQuery } from '@tanstack/react-query';
+// import useAxiosSecure from '../useAxiosSecure';
 
-const Myallchallenges = ({ x, initialStatus }) => {
+const Myallchallenges = ({ x }) => {
+    //console.log(x._id)
     const { user, setloading } = React.useContext(AuthContext);
-    const [selected, setSelected] = useState(initialStatus || 'Not started');
+    const [selected, setSelected] = useState(x.status || 'Not started');
     const [total, setTotal] = useState(x.totalImpact || 0);
     useEffect(() => {
-        if (initialStatus !== undefined && initialStatus !== null) {
-            setSelected(initialStatus);
+        if (x.status !== undefined && x.status !== null) {
+            setSelected(x.status);
         }
 
-    }, [initialStatus]);
-
+    }, [x.status]);
+    // const axiosSecure = useAxiosSecure();
+    // const { data = [] } = useQuery({
+    //     queryKey: ["allchallenges"],
+    //     queryFn: async () => {
+    //         const res = await axiosSecure.get("/allchallenges");
+    //         return res.data;
+    //     },
+    // });
     const updateStatus = async () => {
         if (!user?.email) return;
-
         setloading(true);
         try {
             // Update challenge status
-            await fetch(
+            const res = await fetch(
                 `https://ecotrack-server-side.vercel.app/myactivities/${user.email}/${x._id}`,
                 {
                     method: 'PATCH',
@@ -27,17 +36,21 @@ const Myallchallenges = ({ x, initialStatus }) => {
                     body: JSON.stringify({ status: selected }),
                 }
             );
-
+            const data = await res.json()
             // Update totalImpact
-            await fetch(`https://ecotrack-server-side.vercel.app/${x._id}/update`, {
+            const res2 = await fetch(`https://ecotrack-server-side.vercel.app/${x.challengeid}/update/${x._id}`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ totalImpact: total }),
             });
-
-            toast('Challenge status updated successfully!');
+            const data2 = await res2.json()
+            //console.log(data)
+            if (data.modifiedCount || (data2.challenge.modifiedCount > 0 || data2.myactivity.modifiedCount > 0)) {
+                toast('Challenge status updated successfully!');
+                setloading(false)
+            }
         } catch (err) {
-            console.error(err);
+            console.log(err);
             toast.error('Failed to update status');
         } finally {
             setloading(false);

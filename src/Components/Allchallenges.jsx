@@ -1,39 +1,63 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Challenges from './Challenges';
 import { AuthContext } from './AuthContext';
 import Challengedescription from './Challengedescription';
 import SkeletonCard from './SkeletonCard';
+import useAxiosSecure from '../useAxiosSecure';
+import { useQuery } from '@tanstack/react-query';
 
 const Allchallenges = () => {
-    const [challenges, setChallenges] = useState([]);
+
     const [filter, setfilter] = useState([])
     const [loading, setLoading] = useState(true);
     const [loadingdescriptions, setLoadingdescriptions] = useState(true);
     const [participantnumber, setparticipantnumber] = useState('');
     //const {setloading}=use(AuthContext)
-    useEffect(() => {
-        //setloading(true)
-        fetch("https://ecotrack-server-side.vercel.app/allchallenges")
-            .then(res => res.json())
-            .then(data => {
-                setChallenges(data)
-                setLoading(false);
-            })
-        //.finally(() => setloading(false))
-    }, []);
-    const [description, setdescription] = useState([])
+    //   const [challenges, setChallenges] = useState([]);
+    // useEffect(() => {
+    //     //setloading(true)
+    //     fetch("https://ecotrack-server-side.vercel.app/allchallenges")
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             setChallenges(data)
+    //             setLoading(false);
+    //         })
+
+    // }, []);
+    const axiosSecure = useAxiosSecure();
+    const { data: challenges = [] } = useQuery({
+        queryKey: ["allchallenges"],
+        queryFn: async () => {
+            const res = await axiosSecure.get("/allchallenges");
+            setLoading(false);
+            return res.data;
+        },
+    });
+
+
+
     const [filtereddescription, setfiltereddescription] = useState([])
-    useEffect(() => {
-        //setloading(true)
-        fetch("https://ecotrack-server-side.vercel.app/categorydescription")
-            .then(res => res.json())
-            .then(data => {
-                setdescription(data)
-                setLoadingdescriptions(false)
-            }
-            )
-        //.finally(() => setloading(false))
-    }, []);
+    // const [description, setdescription] = useState([])
+    // useEffect(() => {
+    //     //setloading(true)
+    //     fetch("https://ecotrack-server-side.vercel.app/categorydescription")
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             setdescription(data)
+    //             setLoadingdescriptions(false)
+    //         }
+    //         )
+    // }, []);
+    const { data: description = [] } = useQuery({
+        queryKey: ["categorydescription"],
+        queryFn: async () => {
+            const res = await axiosSecure.get("/categorydescription");
+            setLoadingdescriptions(false)
+
+            return res.data;
+        },
+    });
+
     const overallDescription = [
         {
             _id: "overall-1",

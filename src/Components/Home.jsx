@@ -8,28 +8,39 @@ import Righttips from "./Righttips";
 import Events from "./Events";
 import SkeletonCard from "./SkeletonCard";
 import Footer from "./Footer";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../useAxiosSecure";
+import HeroBanner from "./HeroBanner";
+
+import GreenNewsletter from "./Newsletter";
+import BlogsSection from "./Blogs";
 //import useAxiosSecure from "../useAxiosSecure";
 //import { useQuery } from '@tanstack/react-query';
 
 const Home = () => {
-    const [challenges, setChallenges] = useState([]);
+    //const [challenges, setChallenges] = useState([]);
     const navigate = useNavigate()
     // const [loading, setLoading] = useState(true);
     //  const [challengesLoading, setChallengesLoading] = useState(true);
     const { user } = use(AuthContext)
-    //const axiosSecure = useAxiosSecure()
-    useEffect(() => {
-        fetch("https://ecotrack-server-side.vercel.app/challenges")
-            .then(res => res.json())
-            .then(data => {
-                console.log("RAW RESPONSE:", data);
-                console.log("IS ARRAY:", Array.isArray(data));
-                setChallenges(data);
-            })
-            .catch(err => console.error(err));
-    }, []);
-
-    // const [toggle,settoggle]=useState(false)
+    const axiosSecure = useAxiosSecure()
+    // useEffect(() => {
+    //     fetch("https://ecotrack-server-side.vercel.app/challenges")
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             console.log("RAW RESPONSE:", data);
+    //             console.log("IS ARRAY:", Array.isArray(data));
+    //             setChallenges(data);
+    //         })
+    //         .catch(err => console.error(err));
+    // }, []);
+    const { refetch, data: challenges = [] } = useQuery({
+        queryKey: ['challenges'],
+        queryFn: async () => {
+            const res = await axiosSecure.get("/challenges")
+            return res.data
+        }
+    })
     const [tips, settips] = useState([])
     useEffect(() => {
         fetch('/Tips.json').then(res => res.json())
@@ -38,7 +49,7 @@ const Home = () => {
                 settips(res)
             })
     }, [])
-    const [events, setevents] = useState([])
+
     // useEffect(() => {
     //     fetch("https://ecotrack-server-side.vercel.app/events")
     //         .then(res => res.json())
@@ -47,47 +58,68 @@ const Home = () => {
     //         );
     // }, []);
 
-    // const {  data:events=[]  } = useQuery({
-    //     queryKey: ['events'],
-    //     queryFn: async () => {
-    //         const res = await axiosSecure.get("/events")
-    //         return res.data
-    //     }
-    // })
-    useEffect(() => {
-        fetch('/Events.json').then(res => res.json())
-            .then(res => {
-                //  console.log(res)
-                setevents(res)
-            })
-    }, [])
-    const [stat, setstat] = useState([])
-    useEffect(() => {
-        fetch("https://ecotrack-server-side.vercel.app/challenges/69145f6de2bdd25046c0b918")
-            .then(res => res.json())
-            .then(data => setstat(data)
-                //console.log(stat)
-            );
-    }, []);
+    const { data: events = [] } = useQuery({
+        queryKey: ['events'],
+        queryFn: async () => {
+            const res = await axiosSecure.get("/events")
+            return res.data
+        }
+    })
 
-    const [stat1, setstat1] = useState([])
-    useEffect(() => {
-        fetch("https://ecotrack-server-side.vercel.app/challenges/69146057e2bdd25046c0b922")
-            .then(res => res.json())
-            .then(data => setstat1(data)
-                //console.log(stat)
-            );
-    }, []);
+    // const [events, setevents] = useState([])
+    // useEffect(() => {
+    //     fetch('/Events.json').then(res => res.json())
+    //         .then(res => {
+    //             //  console.log(res)
+    //             setevents(res)
+    //         })
+    // }, [])
+    // const [stat, setstat] = useState([])
+    // useEffect(() => {
+    //     fetch("https://ecotrack-server-side.vercel.app/challenges/69145f6de2bdd25046c0b918")
+    //         .then(res => res.json())
+    //         .then(data => setstat(data)
+    //             //console.log(stat)
+    //         );
+    // }, []);
+    const { data: stat = [] } = useQuery({
+        queryKey: ['69145f6de2bdd25046c0b918'],
+        queryFn: async () => {
+            const res = await axiosSecure.get("/challenges/69145f6de2bdd25046c0b918")
+            return res.data
+        }
+    })
+    // const [stat1, setstat1] = useState([])
+    // useEffect(() => {
+    //     fetch("https://ecotrack-server-side.vercel.app/challenges/69146057e2bdd25046c0b922")
+    //         .then(res => res.json())
+    //         .then(data => setstat1(data)
+    //             //console.log(stat)
+    //         );
+    // }, []);
 
-    const [stat2, setstat2] = useState([])
-    useEffect(() => {
-        fetch("https://ecotrack-server-side.vercel.app/challenges/69145fd2e2bdd25046c0b91b")
-            .then(res => res.json())
-            .then(data => setstat2(data)
-                //console.log(stat)
-            );
-    }, []);
-
+    const { data: stat1 = [] } = useQuery({
+        queryKey: ['69146057e2bdd25046c0b922'],
+        queryFn: async () => {
+            const res = await axiosSecure.get("/challenges/69146057e2bdd25046c0b922")
+            return res.data
+        }
+    })
+    // const [stat2, setstat2] = useState([])
+    // useEffect(() => {
+    //     fetch("https://ecotrack-server-side.vercel.app/challenges/69145fd2e2bdd25046c0b91b")
+    //         .then(res => res.json())
+    //         .then(data => setstat2(data)
+    //             //console.log(stat)
+    //         );
+    // }, []);
+    const { data: stat2 = [] } = useQuery({
+        queryKey: ['69145fd2e2bdd25046c0b91b'],
+        queryFn: async () => {
+            const res = await axiosSecure.get("/challenges/69145fd2e2bdd25046c0b91b")
+            return res.data
+        }
+    })
     // .then(data => {
     //     setstat(data)
     // console.log(stat)}
@@ -172,10 +204,13 @@ const Home = () => {
     return (
         //bg-[#ccc4be]
         //bg-[#17483d] 
-        <div className=" bg-[#17483d]  min-h-screen pt-14">
-            <div className="relative w-full  h-[55vh] flex flex-col justify-center items-center text-center px-4 sm:px-6 md:pt-12">
-                <div className="bg-gradient-to-r from-[#afbf72] to-[#44633b] rounded-3xl shadow-2xl p-6 sm:p-10 md:p-10 max-w-4xl w-full">
-
+        <div className=" bg-[#17483d]  min-h-screen pt-2">
+            <HeroBanner></HeroBanner>
+            {/* <div
+                id="eco-challenges"
+                className="relative  w-full   h-[25vh] md:h-[55vh] flex flex-col justify-center items-center text-center px-4 sm:px-6 mt-20 mb-12 md:mt-0 md:mb-0 md:pt-15"
+            >
+                <div className="bg-gradient-to-r from-[#afbf72] to-[#44633b] rounded-3xl shadow-2xl p-2 md:p-10 max-w-4xl w-full">
                     <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white drop-shadow-lg mb-3">
                         Grow a Greener Future
                     </h1>
@@ -185,17 +220,20 @@ const Home = () => {
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-                        <button onClick={() => navigate('/register')} className="bg-white text-green-700 font-semibold py-2 sm:py-3 px-6 sm:px-8 rounded-full shadow-lg hover:bg-gray-100 transition-all duration-300">
+                        <button
+                            onClick={() => navigate("/register")}
+                            className="bg-white text-green-700 font-semibold py-2 sm:py-3 px-6 sm:px-8 rounded-full shadow-lg hover:bg-gray-100 transition-all duration-300"
+                        >
                             Get Started
                         </button>
-                        <button className="bg-transparent border-2 border-white text-white font-semibold py-2 sm:py-3 px-6 sm:px-8  rounded-full shadow-lg hover:bg-white hover:text-green-700 transition-all duration-300">
+                        <button className="bg-transparent border-2 border-white text-white font-semibold py-2 sm:py-3 px-6 sm:px-8 rounded-full shadow-lg hover:bg-white hover:text-green-700 transition-all duration-300">
                             Learn More
                         </button>
                     </div>
-
                 </div>
-            </div>
-            <section className="w-full py-6  flex flex-col items-center text-center">
+            </div> */}
+
+            <section  id="eco-challenges" className="w-full py-6 mt-20 mb-12  md:mt-8  md:pt-15 flex flex-col items-center text-center">
 
                 <div className="border-t-4 border-[#5C6D66] w-1/4 mb-2"></div>
                 <h2 className="text-4xl font-extrabold text-[#5C6D66] mb-7 tracking-tight">
@@ -203,20 +241,98 @@ const Home = () => {
                 </h2>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full px-6 md:px-60">
-                    <div className="bg-[#5C6D66] text-[#FEFAE0] rounded-2xl shadow-xl py-8 px-4 hover:scale-105 transition-transform duration-300 ease-out">
+                    {/* <div onClick={() => navigate('challenges/69146057e2bdd25046c0b922')} className="bg-[#5C6D66] text-[#FEFAE0] rounded-2xl shadow-xl py-8 px-4 hover:scale-105 transition-transform duration-300 ease-out">
                         <h3 className="text-lg font-semibold mb-2"> CO₂ Saved</h3>
                         <p className="text-3xl font-extrabold text-[#F2CE05]"> <span className=" font-bold">{stat1.totalImpact}</span> kg</p>
-                    </div>
-                    <div className="bg-[#FEFAE0] text-[#5C6D66] rounded-2xl shadow-xl py-8 px-4 border border-[#A9B388] hover:scale-105 transition-transform duration-300 ease-out">
+                    </div> */}
+                    <a
+                        href="#"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            navigate("challenges/69146057e2bdd25046c0b922");
+                        }}
+                        className="hover-3d my-2 mx-2 cursor-pointer"
+                    >
+
+                        <div className="card bg-[#5C6D66] text-[#FEFAE0] rounded-2xl shadow-xl py-8 px-4 w-full transition-none">
+                            <h3 className="text-lg font-semibold mb-2">CO₂ Saved</h3>
+
+                            <p className="text-3xl font-extrabold text-[#F2CE05]">
+                                <span className="font-bold">{stat1.totalImpact}</span> kg
+                            </p>
+                        </div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </a>
+
+                    {/* <div onClick={() => navigate('challenges/69145f6de2bdd25046c0b918')} className="bg-[#FEFAE0] text-[#5C6D66] rounded-2xl shadow-xl py-8 px-4 border border-[#A9B388] hover:scale-105 transition-transform duration-300 ease-out">
                         <h3 className="text-lg font-semibold mb-2">Plastic Reduced</h3>
                         <p className="text-3xl font-extrabold text-[#874830]"><span className=" font-bold">{stat.totalImpact}</span> kg</p>
-                    </div>
+                    </div> */}
+                    <a
+                        href="#"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            navigate("challenges/69145f6de2bdd25046c0b918");
+                        }}
+                        className="hover-3d my-2 mx-2 cursor-pointer"
+                    >
+                        <div className="card bg-[#FEFAE0] text-[#5C6D66] rounded-2xl shadow-xl py-8 px-4 border border-[#A9B388] w-full transition-none">
+                            <h3 className="text-lg font-semibold mb-2">Plastic Reduced</h3>
 
+                            <p className="text-3xl font-extrabold text-[#874830]">
+                                <span className="font-bold">{stat.totalImpact}</span> kg
+                            </p>
+                        </div>
 
-                    <div className="bg-[#F9EBC7] text-[#5C6D66] rounded-2xl shadow-xl py-8 px-4 border border-[#A9B388] hover:scale-105 transition-transform duration-300 ease-out">
+                        {/* REQUIRED 8 hover zones */}
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </a>
+
+                    {/* 
+                    <div onClick={() => navigate('challenges/69145fd2e2bdd25046c0b91b')} className="bg-[#F9EBC7] text-[#5C6D66] rounded-2xl shadow-xl py-8 px-4 border border-[#A9B388] hover:scale-105 transition-transform duration-300 ease-out">
                         <h3 className="text-lg font-semibold mb-2">Water Saved</h3>
-                        <p className="text-3xl font-extrabold text-[#874830]"><span className=" font-bold">{stat2.totalImpact}</span> L</p>
-                    </div>
+                        <p className="text-3xl font-extrabold text-[#204f63]"><span className=" font-bold">{stat2.totalImpact}</span> L</p>
+                    </div> */}
+                    <a
+                        href="#"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            navigate("challenges/69145fd2e2bdd25046c0b91b");
+                        }}
+                        className="hover-3d my-2 mx-2 cursor-pointer"
+                    >
+                        <div className="card bg-[#F9EBC7] text-[#5C6D66] rounded-2xl shadow-xl py-8 px-4 border border-[#A9B388] w-full transition-none">
+                            <h3 className="text-lg font-semibold mb-2">Water Saved</h3>
+
+                            <p className="text-3xl font-extrabold text-[#204f63]">
+                                <span className="font-bold">{stat2.totalImpact}</span> L
+                            </p>
+                        </div>
+
+                        {/* REQUIRED 8 hover zones */}
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </a>
 
                 </div>
             </section>
@@ -230,7 +346,7 @@ const Home = () => {
                     Tomorrow...</p>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-10 md:px-26 pt-5">
                     {challenges.length === 0
-                        ? <p className="text-center lg:text-2xl mx-auto text-white">Challenges are loading...</p>
+                        ? <p className="text-center grid-cols-3 lg:text-2xl mx-auto text-white">Challenges are loading...</p>
                         : challenges.map(x => (
                             <Challenges key={x._id || x.id} x={x} />
                         ))
@@ -379,7 +495,7 @@ const Home = () => {
 
                 <div className="grid lg:mt-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2  px-5 md:px-5">
 
-                    {events.map(x => (<Events key={x._id} x={x}></Events>))
+                    {events.map(x => (<Events key={x._id} x={x} refetch={refetch} ></Events>))
                     }
                 </div>
 
@@ -404,7 +520,7 @@ const Home = () => {
                         </li>
                     </ul>
                 </section>
-                <section className="bg-[#686851] rounded-b-[90px] py-16 px-6 md:px-20 text-center relative">
+                <section className="bg-[#686851]  rounded-b-[90px] py-16 px-6 md:px-20 text-center relative">
                     <h2 className="text-4xl font-extrabold text-[#F7EFD8] mb-8 drop-shadow-lg">How It Works</h2>
                     <div className="flex flex-col md:flex-row items-center justify-center gap-8 max-w-5xl mx-auto">
 
@@ -427,8 +543,98 @@ const Home = () => {
                 </section>
             </div>
 
+            <GreenNewsletter></GreenNewsletter>
+            {/* <BlogsSection></BlogsSection> */}
+{/* <section className="py-20 bg-gradient-to-br from-[#F6FFF8] via-[#ECFDF3] to-[#E6F4EA]">
+  <div className="max-w-4xl mx-auto px-6">
+    
+    <h2 className="text-3xl md:text-4xl font-extrabold text-center text-[#17483d] mb-4">
+      Frequently Asked Questions
+    </h2>
+    <p className="text-center text-gray-600 mb-12">
+      Everything you need to know before getting started
+    </p>
 
+    <div className="space-y-5">
+      {[
+        {
+          q: "What is EcoTrack?",
+          a: "EcoTrack is a platform that helps you participate in real-world eco challenges and track your environmental impact.",
+        },
+        {
+          q: "Is EcoTrack free to use?",
+          a: "Yes, EcoTrack is completely free for users who want to join challenges and read articles.",
+        },
+        {
+          q: "How do eco challenges work?",
+          a: "You join a challenge, complete eco-friendly actions, and submit proof to earn points and impact stats.",
+        },
+        {
+          q: "Can I track my progress?",
+          a: "Absolutely. Your dashboard shows completed challenges, points, and environmental impact.",
+        },
+      ].map((item, i) => (
+        <div
+          key={i}
+          className="bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition"
+        >
+          <h3 className="font-semibold text-lg text-[#17483d] mb-2">
+            {item.q}
+          </h3>
+          <p className="text-gray-600">{item.a}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+   <div className="max-w-5xl mx-auto md:mt-10 px-6 text-center">
+    
+    <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-6">
+      Ready to Make a Real Impact?
+    </h2>
 
+    <p className="text-green-100 text-base md:text-lg max-w-2xl mx-auto mb-10">
+      Join EcoTrack today and turn your everyday actions into meaningful change for the planet.
+    </p>
+
+    <button
+      onClick={() =>
+        document
+          .getElementById("eco-challenges")
+          ?.scrollIntoView({ behavior: "smooth" })
+      }
+      className="px-10 py-4 rounded-full bg-gradient-to-r from-[#a3e635] to-[#4ade80]
+                 text-[#17483d] font-bold text-lg shadow-xl
+                 hover:scale-105 hover:shadow-2xl transition-all duration-300"
+    >
+      Join Eco Challenges
+    </button>
+  </div>
+</section> */}
+{/* <section className="py-24 bg-gradient-to-r from-[#17483d] via-[#1f6f5b] to-[#2f8f72]">
+  <div className="max-w-5xl mx-auto px-6 text-center">
+    
+    <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-6">
+      Ready to Make a Real Impact?
+    </h2>
+
+    <p className="text-green-100 text-base md:text-lg max-w-2xl mx-auto mb-10">
+      Join EcoTrack today and turn your everyday actions into meaningful change for the planet.
+    </p>
+
+    <button
+      onClick={() =>
+        document
+          .getElementById("eco-challenges")
+          ?.scrollIntoView({ behavior: "smooth" })
+      }
+      className="px-10 py-4 rounded-full bg-gradient-to-r from-[#a3e635] to-[#4ade80]
+                 text-[#17483d] font-bold text-lg shadow-xl
+                 hover:scale-105 hover:shadow-2xl transition-all duration-300"
+    >
+      Join Eco Challenges
+    </button>
+  </div>
+</section> */}
 
         </div>
     );

@@ -34,13 +34,23 @@ const Header = () => {
         }
         <li>|</li>
         <li><NavLink to="/allchallenges">Challenges</NavLink></li>
-      
-       
-        {user && <li>|</li>}
+        {!user && <li>|</li>}
+        {
+            !user && <li><NavLink to={"/allstats"}>Stats</NavLink></li>
+        }
+
+        <li>|</li>
+        <li><NavLink to="/blogs">Blogs</NavLink></li>
+        <li>|</li>
+        <li><NavLink to="/rewards">Rewards</NavLink></li>
+        <li>|</li>
+        <li><NavLink to="/dashboard">Dashboard</NavLink></li>
+        {!user && <li>|</li>}
 
         {
-            user && <li><NavLink to={`/myactivities/${user.email}`}>My activities</NavLink></li>
+            !user && <li><NavLink to={`/dashboard/myactivities/${user?.email}`}>Activities</NavLink></li>
         }
+
     </>
     return (
 
